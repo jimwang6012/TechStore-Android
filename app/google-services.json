@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "337773987505",
+    "project_id": "yousee-8710c",
+    "storage_bucket": "yousee-8710c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337773987505:android:70be1d362b894cc65f8490",
+        "android_client_info": {
+          "package_name": "com.example.yousee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337773987505-ofbpr5hginae3l78777qphak54a3m8iu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVgP7Z6tmuYvoG3ASW1Tz3TTzIHW3MeHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337773987505-ofbpr5hginae3l78777qphak54a3m8iu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
