@@ -67,6 +67,7 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:fadingEdge="none"
                 android:id="@+id/rvCategory"
                 android:layout_width="386dp"
                 android:layout_height="610dp"
