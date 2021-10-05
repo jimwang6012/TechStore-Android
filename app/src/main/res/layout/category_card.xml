@@ -28,7 +28,7 @@
             android:id="@+id/text_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_700"
+            android:background="@drawable/gpu_linear_gradient"
             android:padding="10dp"
             android:text="GPU"
             android:textColor="@color/white"

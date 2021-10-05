@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/search_button"
@@ -25,13 +25,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:autofillHints="name"
                 android:background="@drawable/rounded_bg"
                 android:drawableStart="@android:drawable/ic_menu_search"
                 android:elevation="10dp"
-                android:hint="search"
+                android:hint="@string/search_items"
                 android:minHeight="48dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
@@ -40,8 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
-                android:text="Top Pick"
+                android:layout_marginTop="10dp"
+                android:text="@string/top_pick"
                 android:textColor="@android:color/white"
                 android:textSize="34sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +55,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/rounded_bg"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -62,18 +63,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:listitem="@layout/item_top_picks" >
+                tools:listitem="@layout/item_top_picks">
 
             </androidx.recyclerview.widget.RecyclerView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:fadingEdge="none"
                 android:id="@+id/rvCategory"
-                android:layout_width="386dp"
-                android:layout_height="610dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="0dp"
                 android:layout_marginEnd="16dp"
+                android:fadingEdge="none"
                 android:orientation="vertical"
                 android:paddingTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
