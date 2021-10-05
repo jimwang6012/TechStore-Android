@@ -41,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSearchBtn() {
         searchBtn = (EditText) findViewById(R.id.search_button);
-        searchBtn.setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Click on search btn", Toast.LENGTH_SHORT).show());
+        searchBtn.setFocusable(false);
+        searchBtn.setOnClickListener(view -> {
+            System.out.println("Click on search btn");
+            Toast.makeText(getApplicationContext(), "Click on search btn", Toast.LENGTH_SHORT).show();
+        });
     }
 
 
