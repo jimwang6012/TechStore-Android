@@ -1,17 +1,17 @@
 package com.example.yousee.Models;
 
 public class MockCategory implements ICategory{
-    private String name;
+    private ItemType type;
     private String imageUrl;
 
-    public MockCategory(String name, String imageUrl) {
-        this.name = name;
+    public MockCategory(ItemType type, String imageUrl) {
+        this.type = type;
         this.imageUrl = imageUrl;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public ItemType getType() {
+        return type;
     }
 
     @Override

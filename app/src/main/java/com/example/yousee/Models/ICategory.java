@@ -1,6 +1,6 @@
 package com.example.yousee.Models;
 
 public interface ICategory {
-    String  getName();
+    ItemType  getType();
     String getImageUrl();
 }

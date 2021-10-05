@@ -9,9 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yousee.Models.ICategory;
 import com.example.yousee.Models.ICategory;
 import com.example.yousee.R;
 
@@ -34,7 +34,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         public void onClick(View v) {
             // What to do when the view categoy is clicked
             ICategory clickedCategory = mCategories.get(getAdapterPosition());
-            Toast.makeText(mContext, clickedCategory.getName() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, clickedCategory.getType() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -64,7 +64,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
         // Get the data object for the categoy view in this position
         ICategory thisCategory = mCategories.get(position);
-        System.out.println("Category: "+thisCategory.getName());
+        System.out.println("Category: "+thisCategory.getType());
 
 
         //Set the attributed of list_view_number_categoy views
@@ -74,8 +74,21 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
         //Setting the icon
         holder.imageView.setImageResource(i);
-        holder.nameTextView.setText(thisCategory.getName());
-
+        holder.nameTextView.setText(thisCategory.getType().name());
+        switch (thisCategory.getType()) {
+            case CPU:
+                holder.nameTextView.setBackground(
+                        ContextCompat.getDrawable(mContext,R.drawable.cpu_linear_gradient));
+                break;
+            case GPU:
+                holder.nameTextView.setBackground(
+                        ContextCompat.getDrawable(mContext,R.drawable.gpu_linear_gradient));
+                break;
+            case RAM:
+                holder.nameTextView.setBackground(
+                        ContextCompat.getDrawable(mContext,R.drawable.ram_linear_gradient));
+                break;
+        }
     }
 
     @Override

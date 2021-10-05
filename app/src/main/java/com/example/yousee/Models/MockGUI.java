@@ -1,22 +1,22 @@
 package com.example.yousee.Models;
 
 public class MockGUI implements IItem{
-    private String name;
+    private double price;
     private String imageUrl;
 
-    public MockGUI(String name, String imageUrl) {
-        this.name=name;
+    public MockGUI(double price, String imageUrl) {
+        this.price =price;
         this.imageUrl = imageUrl;
     }
 
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public double getPrice() {
+        return price;
     }
 
     @Override

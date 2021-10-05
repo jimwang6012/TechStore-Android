@@ -1,7 +1,6 @@
 package com.example.yousee.activity;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yousee.Models.IItem;
 import com.example.yousee.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHolder> {
 
@@ -34,7 +35,7 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
         public void onClick(View v) {
             // What to do when the view item is clicked
             IItem clickedItem = mItems.get(getAdapterPosition());
-            Toast.makeText(mContext, clickedItem.getName() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, clickedItem.getPrice() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -64,7 +65,7 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
 
         // Get the data object for the item view in this position
         IItem thisItem = mItems.get(position);
-        System.out.println("Item: "+thisItem.getName());
+        System.out.println("Item: "+thisItem.getPrice());
 
 
         //Set the attributed of list_view_number_item views
@@ -74,9 +75,21 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
 
         //Setting the icon
         holder.imageView.setImageResource(i);
-        holder.nameTextView.setText(thisItem.getName());
-
+        holder.nameTextView.setText(toPrice(thisItem.getPrice()));
     }
+
+
+    /**
+     * convert double to price string
+     * @param price a number representing the price
+     * @return a string represeting the price
+     */
+    private String toPrice(double price) {
+        Locale nzd = new Locale("en","NZ");
+        NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(nzd);
+        return dollarFormat.format(price);
+    }
+
 
     @Override
     public int getItemCount() {

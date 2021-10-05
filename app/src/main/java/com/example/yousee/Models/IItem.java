@@ -1,7 +1,7 @@
 package com.example.yousee.Models;
 
 public interface IItem {
-    String  getName();
+    double getPrice();
 
     String getImageUrl();
 }
