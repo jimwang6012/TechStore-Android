@@ -3,7 +3,7 @@ package com.example.yousee.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Item {
+public abstract class Item implements IItem{
 
     private long _id;
     private String _name;

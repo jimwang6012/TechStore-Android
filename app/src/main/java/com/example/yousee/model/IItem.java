@@ -3,7 +3,7 @@ package com.example.yousee.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-interface IItem {
+public interface IItem {
     public long getId();
     public String getName();
     public String getDescription();
