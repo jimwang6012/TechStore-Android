@@ -1,4 +1,4 @@
-package com.example.yousee.activity;
+package com.example.yousee.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yousee.Models.IItem;
+import com.example.yousee.model.IItem;
 import com.example.yousee.R;
 
 import java.text.NumberFormat;

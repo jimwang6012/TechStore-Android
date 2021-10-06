@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.yousee.Models.ICategory;
-import com.example.yousee.Models.IItem;
+import com.example.yousee.adapter.CategoryAdaptor;
+import com.example.yousee.adapter.TopPickAdaptor;
+import com.example.yousee.model.ICategory;
+import com.example.yousee.model.IItem;
 import com.example.yousee.R;
 import com.example.yousee.util.MockDataProvider;
 

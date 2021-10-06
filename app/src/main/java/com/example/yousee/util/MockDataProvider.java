@@ -1,10 +1,10 @@
 package com.example.yousee.util;
 
-import com.example.yousee.Models.ItemType;
-import com.example.yousee.Models.MockCategory;
-import com.example.yousee.Models.MockGUI;
-import com.example.yousee.Models.ICategory;
-import com.example.yousee.Models.IItem;
+import com.example.yousee.model.ItemType;
+import com.example.yousee.model.MockCategory;
+import com.example.yousee.model.MockGUI;
+import com.example.yousee.model.ICategory;
+import com.example.yousee.model.IItem;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class MockDataProvider{
     public static ArrayList<IItem> generateData() {
         ArrayList<IItem> result = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            result.add(new MockGUI(88888.0,"img"));
+            result.add(new MockGUI(100000.0+i*1.0,"img"));
         }
         return result;
     }

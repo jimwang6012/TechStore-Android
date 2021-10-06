@@ -1,4 +1,4 @@
-package com.example.yousee.activity;
+package com.example.yousee.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yousee.Models.ICategory;
+import com.example.yousee.model.ICategory;
 import com.example.yousee.R;
 
 import java.util.ArrayList;

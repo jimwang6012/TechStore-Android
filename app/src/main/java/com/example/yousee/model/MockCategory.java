@@ -1,4 +1,4 @@
-package com.example.yousee.Models;
+package com.example.yousee.model;
 
 public class MockCategory implements ICategory{
     private ItemType type;
