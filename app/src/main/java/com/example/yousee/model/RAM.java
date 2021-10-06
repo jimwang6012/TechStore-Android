@@ -1,6 +1,7 @@
 package com.example.yousee.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RAM extends Item{
 
@@ -21,12 +22,18 @@ public class RAM extends Item{
         this._latency = latency;
     }
 
-    public void getItemType() {
-
+    public ItemType getItemType() {
+        ItemType type = ItemType.RAM;
+        return type;
     }
 
-    public void getSpecs() {
-
+    public HashMap<String, String> getSpecs() {
+        HashMap<String, String> specs = new HashMap<>();
+        specs.put("memoryType", _memoryType);
+        specs.put("capacity", String.valueOf(_capacity));
+        specs.put("speed", String.valueOf(_speed));
+        specs.put("latency", _latency);
+        return specs;
     }
 
 }

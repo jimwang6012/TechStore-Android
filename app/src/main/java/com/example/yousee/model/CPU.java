@@ -1,6 +1,7 @@
 package com.example.yousee.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CPU extends Item{
 
@@ -21,12 +22,18 @@ public class CPU extends Item{
         this._clockSpeedBoost = clockSpeedBoost;
     }
 
-    public void getItemType() {
-
+    public ItemType getItemType() {
+        ItemType type = ItemType.CPU;
+        return type;
     }
 
-    public void getSpecs() {
-
+    public HashMap<String, String> getSpecs() {
+        HashMap<String, String> specs = new HashMap<>();
+        specs.put("coreCount", String.valueOf(_coreCount));
+        specs.put("socketType", _socketType);
+        specs.put("clockSpeedBase", String.valueOf(_clockSpeedBase));
+        specs.put("clockSpeedBoost", String.valueOf(_clockSpeedBoost));
+        return specs;
     }
 
 }

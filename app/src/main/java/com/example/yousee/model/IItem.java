@@ -1,6 +1,7 @@
 package com.example.yousee.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 interface IItem {
     public long getId();
@@ -13,6 +14,6 @@ interface IItem {
     public int getNumViewed();
     public int getNumSold();
 
-    public void getItemType();
-    public void getSpecs();
+    public ItemType getItemType();
+    public HashMap<String, String> getSpecs();
 }

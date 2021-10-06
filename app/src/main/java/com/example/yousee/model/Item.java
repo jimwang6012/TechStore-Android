@@ -1,6 +1,7 @@
 package com.example.yousee.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Item {
 
@@ -63,8 +64,8 @@ public abstract class Item {
         return _numSold;
     }
 
-    public abstract void getItemType();
+    public abstract ItemType getItemType();
 
-    public abstract void getSpecs();
+    public abstract HashMap<String, String> getSpecs();
 
 }

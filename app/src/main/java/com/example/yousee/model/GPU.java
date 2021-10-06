@@ -1,6 +1,7 @@
 package com.example.yousee.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GPU extends Item{
 
@@ -19,12 +20,17 @@ public class GPU extends Item{
         this._clockSpeedBoost = clockSpeedBoost;
     }
 
-    public void getItemType() {
-
+    public ItemType getItemType() {
+        ItemType type = ItemType.GPU;
+        return type;
     }
 
-    public void getSpecs() {
-
+    public HashMap<String, String> getSpecs() {
+        HashMap<String, String> specs = new HashMap<>();
+        specs.put("memorySize", String.valueOf(_memorySize));
+        specs.put("clockSpeedBase", String.valueOf(_clockSpeedBase));
+        specs.put("clockSpeedBoost", String.valueOf(_clockSpeedBoost));
+        return specs;
     }
 
 }
