@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,9 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
+
+        holder.imageView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fall_transition));
 
         // Get the data object for the item view in this position
         IItem thisItem = mItems.get(position);
