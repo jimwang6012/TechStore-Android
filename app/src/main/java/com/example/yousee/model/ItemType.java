@@ -1,6 +1,6 @@
 package com.example.yousee.model;
 
-enum ItemType {
+public enum ItemType {
     GPU,
     CPU,
     RAM

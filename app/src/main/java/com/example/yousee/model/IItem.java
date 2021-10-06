@@ -8,7 +8,7 @@ public interface IItem {
     public String getName();
     public String getDescription();
     public String getBrand();
-    public float getPrice();
+    public double getPrice();
     public int getStock();
     public ArrayList<String> getImageUrls();
     public int getNumViewed();

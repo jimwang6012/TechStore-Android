@@ -10,7 +10,7 @@ public class RAM extends Item{
     private int _speed;
     private String _latency;
 
-    public RAM(long id, String name, String description, String brand, float price,
+    public RAM(long id, String name, String description, String brand, double price,
                int stock, ArrayList<String> imageUrls, int numViewed, int numSold,
                String memoryType, int capacity, int speed, String latency) {
 

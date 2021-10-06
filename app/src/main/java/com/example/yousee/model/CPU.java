@@ -10,7 +10,7 @@ public class CPU extends Item{
     private int _clockSpeedBase;
     private int _clockSpeedBoost;
 
-    public CPU(long id, String name, String description, String brand, float price,
+    public CPU(long id, String name, String description, String brand, double price,
                int stock, ArrayList<String> imageUrls, int numViewed, int numSold,
                int coreCount, String socketType, int clockSpeedBase, int clockSpeedBoost) {
 

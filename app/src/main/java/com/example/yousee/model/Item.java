@@ -9,13 +9,13 @@ public abstract class Item implements IItem{
     private String _name;
     private String _description;
     private String _brand;
-    private float _price;
+    private double _price;
     private int _stock;
     private ArrayList<String> _imageUrls;
     private int _numViewed;
     private int _numSold;
 
-    public Item(long id, String name, String description, String brand, float price,
+    public Item(long id, String name, String description, String brand, double price,
                 int stock, ArrayList<String> imageUrls, int numViewed, int numSold) {
         this._id = id;
         this._name = name;
@@ -44,7 +44,7 @@ public abstract class Item implements IItem{
         return _brand;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return _price;
     }
 

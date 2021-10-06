@@ -9,7 +9,7 @@ public class GPU extends Item{
     private int _clockSpeedBase;
     private int _clockSpeedBoost;
 
-    public GPU(long id, String name, String description, String brand, float price,
+    public GPU(long id, String name, String description, String brand, double price,
                int stock, ArrayList<String> imageUrls, int numViewed, int numSold,
                int memorySize, int clockSpeedBase, int clockSpeedBoost) {
 
