@@ -1,17 +1,35 @@
 package com.example.yousee.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MockGUI implements IItem{
     private double price;
-    private String imageUrl;
+    private ArrayList<String> imageUrl;
 
-    public MockGUI(double price, String imageUrl) {
+    public MockGUI(double price, ArrayList<String> imageUrl) {
         this.price =price;
         this.imageUrl = imageUrl;
     }
 
+    @Override
+    public long getId() {
+        return 0;
+    }
 
-    public void setPrice(double price) {
-        this.price = price;
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
+    public String getBrand() {
+        return null;
     }
 
     @Override
@@ -20,7 +38,33 @@ public class MockGUI implements IItem{
     }
 
     @Override
-    public String getImageUrl() {
-        return imageUrl;
+    public int getStock() {
+        return 0;
     }
+
+    @Override
+    public ArrayList<String> getImageUrls() {
+        return null;
+    }
+
+    @Override
+    public int getNumViewed() {
+        return 0;
+    }
+
+    @Override
+    public int getNumSold() {
+        return 0;
+    }
+
+    @Override
+    public ItemType getItemType() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, String> getSpecs() {
+        return null;
+    }
+
 }
