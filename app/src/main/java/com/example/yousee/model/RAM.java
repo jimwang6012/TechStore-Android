@@ -10,6 +10,40 @@ public class RAM extends Item{
     private int _speed;
     private String _latency;
 
+    public String getMemoryType() {
+        return _memoryType;
+    }
+
+    public int getCapacity() {
+        return _capacity;
+    }
+
+    public int getSpeed() {
+        return _speed;
+    }
+
+    public String getLatency() {
+        return _latency;
+    }
+
+    public void setMemoryType(String memoryType) {
+        this._memoryType = memoryType;
+    }
+
+    public void setCapacity(int capacity) {
+        this._capacity = capacity;
+    }
+
+    public void setSpeed(int _speed) {
+        this._speed = _speed;
+    }
+
+    public void setLatency(String _latency) {
+        this._latency = _latency;
+    }
+
+    public RAM(){super();}
+
     public RAM(long id, String name, String description, String brand, double price,
                int stock, ArrayList<String> imageUrls, int numViewed, int numSold,
                String memoryType, int capacity, int speed, String latency) {
@@ -27,7 +61,7 @@ public class RAM extends Item{
         return type;
     }
 
-    public HashMap<String, String> getSpecs() {
+    public HashMap<String, String> listSpecs() {
         HashMap<String, String> specs = new HashMap<>();
         specs.put("memoryType", _memoryType);
         specs.put("capacity", String.valueOf(_capacity));

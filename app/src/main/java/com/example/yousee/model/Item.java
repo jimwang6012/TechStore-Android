@@ -15,6 +15,8 @@ public abstract class Item implements IItem{
     private int _numViewed;
     private int _numSold;
 
+    public Item(){}
+
     public Item(long id, String name, String description, String brand, double price,
                 int stock, ArrayList<String> imageUrls, int numViewed, int numSold) {
         this._id = id;
@@ -66,6 +68,41 @@ public abstract class Item implements IItem{
 
     public abstract ItemType getItemType();
 
-    public abstract HashMap<String, String> getSpecs();
+    public abstract HashMap<String, String> listSpecs();
 
+    public void setId(long id) {
+        this._id = id;
+    }
+
+    public void setName(String name) {
+        this._name = name;
+    }
+
+    public void setDescription(String description) {
+        this._description = description;
+    }
+
+    public void setBrand(String brand) {
+        this._brand = brand;
+    }
+
+    public void setPrice(double price) {
+        this._price = price;
+    }
+
+    public void setStock(int stock) {
+        this._stock = stock;
+    }
+
+    public void setImageUrls(ArrayList<String> imageUrls) {
+        this._imageUrls = imageUrls;
+    }
+
+    public void setNumViewed(int numViewed) {
+        this._numViewed = numViewed;
+    }
+
+    public void setNumSold(int numSold) {
+        this._numSold = numSold;
+    }
 }

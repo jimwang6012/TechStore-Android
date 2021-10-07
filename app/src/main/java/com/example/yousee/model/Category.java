@@ -7,6 +7,8 @@ public class Category implements ICategory {
     private String _description;
     private String _imageUrl;
 
+    public Category(){}
+
     public Category(long id, ItemType type, String description, String imageUrl) {
         this._id = id;
         this._type = type;
@@ -30,4 +32,24 @@ public class Category implements ICategory {
         return _imageUrl;
     }
 
+    public void setId(long id) {
+        this._id = id;
+    }
+
+
+
+    public void setType(String type) {
+        if(type.equals("GPU")) this._type = ItemType.GPU;
+        if(type.equals("CPU")) this._type = ItemType.CPU;
+        if(type.equals("RAM")) this._type = ItemType.RAM;
+    }
+
+
+    public void setDescription(String description) {
+        this._description = description;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this._imageUrl = imageUrl;
+    }
 }
