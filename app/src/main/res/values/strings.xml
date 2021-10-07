@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">YouSee</string>
+    <string name="top_pick">Top Pick</string>
+    <string name="search_items">Search items</string>
 </resources>
