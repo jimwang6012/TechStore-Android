@@ -1,6 +1,10 @@
 package com.example.yousee.model;
 
 public interface ICategory {
-    ItemType  getType();
+
+    long getId();
+    ItemType getType();
+    String getDescription();
     String getImageUrl();
+
 }

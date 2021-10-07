@@ -10,8 +10,18 @@ public class MockCategory implements ICategory{
     }
 
     @Override
+    public long getId() {
+        return 0;
+    }
+
+    @Override
     public ItemType getType() {
         return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
     }
 
     @Override
