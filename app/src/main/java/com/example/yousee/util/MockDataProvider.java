@@ -1,5 +1,6 @@
 package com.example.yousee.util;
 
+import com.example.yousee.model.GPU;
 import com.example.yousee.model.ItemType;
 import com.example.yousee.model.MockCategory;
 import com.example.yousee.model.MockGUI;
@@ -7,13 +8,14 @@ import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MockDataProvider{
 
     public static ArrayList<IItem> generateData() {
         ArrayList<IItem> result = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            result.add(new MockGUI(100000.0+i*1.0,"img"));
+            result.add(new GPU(1,"GoodGPU","A mock good gpu description","mock bran",100.0,10,new ArrayList<String>(Arrays.asList("img","img","img")),10,2,2,3,4));
         }
         return result;
     }

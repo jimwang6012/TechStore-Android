@@ -74,7 +74,7 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
 
         //Set the attributed of list_view_number_item views
         int i = mContext.getResources().getIdentifier(
-                thisItem.getImageUrl(), "drawable",
+                thisItem.getImageUrls().get(0), "drawable",
                 mContext.getPackageName());
 
         //Setting the icon
