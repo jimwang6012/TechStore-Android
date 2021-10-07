@@ -1,6 +1,7 @@
 package com.example.yousee.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yousee.activity.ListActivity;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.R;
 
@@ -35,6 +37,9 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
             // What to do when the view categoy is clicked
             ICategory clickedCategory = mCategories.get(getAdapterPosition());
             Toast.makeText(mContext, clickedCategory.getType() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(mContext, ListActivity.class);
+            mContext.startActivity(intent);
+
         }
     }
 
