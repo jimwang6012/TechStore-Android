@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YouSee">
         <activity
+            android:name=".activity.ListActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
