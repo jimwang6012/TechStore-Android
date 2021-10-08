@@ -109,7 +109,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         holder.itemImage.setImageResource(i);
 
         holder.name.setText(thisItem.getName());
-        holder.status.setText(Integer.toString(thisItem.getStock()));
+        holder.status.setText(getStatus(thisItem.getStock()));
         holder.price.setText(toPrice(thisItem.getPrice()));
     }
 
@@ -122,6 +122,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         Locale nzd = new Locale("en","NZ");
         NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(nzd);
         return dollarFormat.format(price);
+    }
+
+    private String getStatus(int stock) {
+        if (stock > 0) {
+            return "In stock";
+        } else {
+            return "Out of stock";
+        }
     }
 
     @Override
