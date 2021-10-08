@@ -22,19 +22,35 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * Because of Firebase API are implemented in asynchronous nature
+ * a callback function is required to be implemented by the developer to
+ * handle the action after the request is completed.
+ *
+ */
 public class DataProvider {
 
-    public interface CallBackManager {
-        void callbackFunction(@NonNull Object res);
+    public interface CategoryCallBackManager{
+        void callbackFunction(@NonNull ArrayList<ICategory> res);
     }
 
-    public static void getCategories(@NonNull CallBackManager callBackManager){
+    public interface ItemCallBackManager{
+        void callbackFunction(@NonNull IItem res);
+    }
+
+    public interface ArrayItemCallBackManager{
+        void callbackFunction(@NonNull ArrayList<IItem> res);
+    }
+
+
+    public static void getCategories(@NonNull CategoryCallBackManager callBackManager){
         ArrayList<ICategory> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Category").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
-                res.addAll(Objects.requireNonNull(task.getResult()).toObjects(Category.class));
+                res.addAll(task.getResult().toObjects(Category.class));
                 callBackManager.callbackFunction(res);
             }else{
                 System.out.println("fail to load the thing");
@@ -42,15 +58,18 @@ public class DataProvider {
         });
     }
 
-    public static void getAllItems(CallBackManager callBackManager){
+    public static void getAllItems(ArrayItemCallBackManager callBackManager){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult()).getDocuments()) {
-                    addItemToFinal(res, snapshot);
-                };
+                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                    IItem converted = documentToItem(snapshot);
+                    if (converted != null) {
+                        res.add(converted);
+                    }
+                }
 
                 callBackManager.callbackFunction(res);
             }else{
@@ -60,15 +79,18 @@ public class DataProvider {
     }
 
 
-    public static void getItemsByCategory(CallBackManager callBackManager, ItemType itemType){
+    public static void getItemsByCategory(ArrayItemCallBackManager callBackManager, ItemType itemType){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").whereEqualTo("itemType",itemType.name()).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult()).getDocuments()) {
-                    addItemToFinal(res, snapshot);
-                };
+                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                    IItem converted = documentToItem(snapshot);
+                    if (converted != null) {
+                        res.add(converted);
+                    }
+                }
                 callBackManager.callbackFunction(res);
             }else{
                 System.out.println("fail to load the thing");
@@ -76,31 +98,33 @@ public class DataProvider {
         });
     }
 
-    public static void getItemById(CallBackManager callBackManager, long id){
-        ArrayList<IItem> res = new ArrayList<>();
+    public static void getItemById(ItemCallBackManager callBackManager, long id){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Item").whereEqualTo("id",id).get().addOnCompleteListener(task -> {
+        db.collection("Item").document(String.valueOf(id)).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult()).getDocuments()) {
-                    addItemToFinal(res, snapshot);
-                };
-                callBackManager.callbackFunction(res.get(0));
+                IItem item = documentToItem(task.getResult());
+                if(item!=null){
+                    callBackManager.callbackFunction(item);
+                }
             }else{
                 System.out.println("fail to load the thing");
             }
         });
     }
 
-    public static void getItemByName(CallBackManager callBackManager, String name){
+    public static void getItemByName(ItemCallBackManager callBackManager, String name){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").whereEqualTo("name",name).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult()).getDocuments()) {
-                    addItemToFinal(res, snapshot);
-                };
+                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                    IItem converted = documentToItem(snapshot);
+                    if (converted != null) {
+                        res.add(converted);
+                    }
+                }
                 callBackManager.callbackFunction(res.get(0));
             }else{
                 System.out.println("fail to load the thing");
@@ -108,50 +132,49 @@ public class DataProvider {
         });
     }
 
-    public static void getTopViewedItems(CallBackManager callBackManager, int numOfItems){
+    public static void getTopViewedItems(ArrayItemCallBackManager callBackManager, int numOfItems){
+        getSortedItems(callBackManager, numOfItems, "numViewed");
+    }
+
+    public static void getTopSellingItems(ArrayItemCallBackManager callBackManager, int numOfItems){
+        getSortedItems(callBackManager, numOfItems, "numSold");
+    }
+
+    private static void getSortedItems(ArrayItemCallBackManager callBackManager, int numOfItems, String sortParam) {
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Item").orderBy("numViewed", Query.Direction.DESCENDING).limit(numOfItems).get().addOnCompleteListener(task -> {
+        db.collection("Item").orderBy(sortParam, Query.Direction.DESCENDING).limit(numOfItems).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult()).getDocuments()) {
-                    addItemToFinal(res, snapshot);
-                };
+                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                    IItem converted = documentToItem(snapshot);
+                    if (converted != null) {
+                        res.add(converted);
+                    }
+                }
                 callBackManager.callbackFunction(res);
-            }else{
+            } else {
                 System.out.println("fail to load the thing");
             }
         });
     }
 
-    public static void getTopSellingItems(CallBackManager callBackManager, int numOfItems){
-        ArrayList<IItem> res = new ArrayList<>();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Item").orderBy("numSold", Query.Direction.DESCENDING).limit(numOfItems).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : Objects.requireNonNull(task.getResult()).getDocuments()) {
-                    addItemToFinal(res, snapshot);
-                };
-                callBackManager.callbackFunction(res);
-            }else{
-                System.out.println("fail to load the thing");
-            }
-        });
-    }
 
 
-    private static void addItemToFinal(ArrayList<IItem> res, DocumentSnapshot snapshot) {
+
+    /**
+     * @param snapshot generated by Firebase after a query
+     */
+    private static IItem documentToItem( DocumentSnapshot snapshot) {
         if(Objects.equals(snapshot.get("itemType"), "RAM")){
-            res.add(snapshot.toObject(RAM.class));
-        }else if (Objects.equals(snapshot.get("itemType"), "GPU")){
-            res.add(snapshot.toObject(CPU.class));
+            return snapshot.toObject(RAM.class);
+        }else if (Objects.equals(snapshot.get("itemType"), "CPU")){
+            return snapshot.toObject(CPU.class);
         }else if(Objects.equals(snapshot.get("itemType"), "GPU")){
-            res.add(snapshot.toObject(GPU.class));
+            return snapshot.toObject(GPU.class);
         }else {
-            System.out.println("fail to load the thing for unsupported itemtype");
+            return null;
         }
-        ;
     }
 
 

@@ -62,12 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private void initTopPickPanel() {
         // Lookup the recyclerview in activity layout
         rvTopPickItems = (RecyclerView) findViewById(R.id.rvTopPick);
-        DataProvider.getTopViewedItems(new DataProvider.CallBackManager() {
-            @Override
-            public void callbackFunction(@NonNull Object res) {
-                populateTopPickAdaptor((ArrayList<IItem>) res);
-            }
-        },4);
+        DataProvider.getTopViewedItems(res -> populateTopPickAdaptor(res),5);
     }
 
     private void populateTopPickAdaptor(ArrayList<IItem> items) {
@@ -92,12 +87,7 @@ public class MainActivity extends AppCompatActivity {
         rvCategories = (RecyclerView) findViewById(R.id.rvCategory);
 
         // Initialize Categories
-        DataProvider.getCategories(new DataProvider.CallBackManager() {
-            @Override
-            public void callbackFunction(@NonNull Object res) {
-                populateAdaptor((ArrayList<ICategory>) res);
-            }
-        });
+        DataProvider.getCategories(res -> populateAdaptor(res));
     }
 
     private void populateAdaptor(ArrayList<ICategory> res) {
