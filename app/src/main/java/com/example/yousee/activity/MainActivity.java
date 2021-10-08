@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         categories = MockDataProvider.generateCategoryData();
 
         // Create adapter passing in the sample user data
-        System.out.println("Category sizeL: "+categories.size());
+        System.out.println("Category sizeL: " + categories.size());
         categoryAdaptor = new CategoryAdaptor(categories);
         // Attach the adapter to the recyclerview to populate items
         rvCategories.setAdapter(categoryAdaptor);

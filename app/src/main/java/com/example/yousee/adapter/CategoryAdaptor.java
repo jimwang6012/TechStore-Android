@@ -19,9 +19,9 @@ import com.example.yousee.R;
 
 import java.util.ArrayList;
 
-public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHolder>{
+public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHolder> {
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView nameTextView;
@@ -32,14 +32,18 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
             imageView = categoyView.findViewById(R.id.image_category);
             nameTextView = categoyView.findViewById(R.id.text_category);
         }
+
         @Override
         public void onClick(View v) {
             // What to do when the view categoy is clicked
             ICategory clickedCategory = mCategories.get(getAdapterPosition());
             Toast.makeText(mContext, clickedCategory.getType() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(mContext, ListActivity.class);
-            mContext.startActivity(intent);
 
+            Intent intent = new Intent(mContext, ListActivity.class);
+            intent.putExtra("category", clickedCategory.getType().toString());
+            intent.putExtra("description", clickedCategory.getDescription());
+
+            mContext.startActivity(intent);
         }
     }
 
@@ -69,7 +73,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
         // Get the data object for the categoy view in this position
         ICategory thisCategory = mCategories.get(position);
-        System.out.println("Category: "+thisCategory.getType());
+        System.out.println("Category: " + thisCategory.getType());
 
 
         //Set the attributed of list_view_number_categoy views
@@ -83,15 +87,15 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         switch (thisCategory.getType()) {
             case CPU:
                 holder.nameTextView.setBackground(
-                        ContextCompat.getDrawable(mContext,R.drawable.cpu_linear_gradient));
+                        ContextCompat.getDrawable(mContext, R.drawable.cpu_linear_gradient));
                 break;
             case GPU:
                 holder.nameTextView.setBackground(
-                        ContextCompat.getDrawable(mContext,R.drawable.gpu_linear_gradient));
+                        ContextCompat.getDrawable(mContext, R.drawable.gpu_linear_gradient));
                 break;
             case RAM:
                 holder.nameTextView.setBackground(
-                        ContextCompat.getDrawable(mContext,R.drawable.ram_linear_gradient));
+                        ContextCompat.getDrawable(mContext, R.drawable.ram_linear_gradient));
                 break;
         }
     }
