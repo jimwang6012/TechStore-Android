@@ -15,5 +15,5 @@ public interface IItem {
     public int getNumSold();
 
     public ItemType getItemType();
-    public HashMap<String, String> getSpecs();
+    public HashMap<String, String> listSpecs();
 }

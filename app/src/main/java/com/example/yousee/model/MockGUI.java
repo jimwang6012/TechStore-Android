@@ -63,7 +63,7 @@ public class MockGUI implements IItem{
     }
 
     @Override
-    public HashMap<String, String> getSpecs() {
+    public HashMap<String, String> listSpecs() {
         return null;
     }
 

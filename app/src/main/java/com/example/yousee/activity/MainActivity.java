@@ -1,5 +1,6 @@
 package com.example.yousee.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.example.yousee.adapter.TopPickAdaptor;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.R;
+import com.example.yousee.util.DataProvider;
 import com.example.yousee.util.MockDataProvider;
 
 import java.util.ArrayList;
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // populate database
+        DataProvider.addDataToFirestore();
+
 
         //hide action bar
         getSupportActionBar().hide();
@@ -56,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private void initTopPickPanel() {
         // Lookup the recyclerview in activity layout
         rvTopPickItems = (RecyclerView) findViewById(R.id.rvTopPick);
+        DataProvider.getTopViewedItems(res -> populateTopPickAdaptor(res),5);
+    }
 
-        // Initialize TopPickItems
-        items = MockDataProvider.generateData();
+    private void populateTopPickAdaptor(ArrayList<IItem> items) {
 
         // Create adapter passing in the sample user data
         topPickAdaptor = new TopPickAdaptor(items);
@@ -80,7 +87,13 @@ public class MainActivity extends AppCompatActivity {
         rvCategories = (RecyclerView) findViewById(R.id.rvCategory);
 
         // Initialize Categories
-        categories = MockDataProvider.generateCategoryData();
+        DataProvider.getCategories(res -> populateAdaptor(res));
+    }
+
+    private void populateAdaptor(ArrayList<ICategory> res) {
+        categories = res;
+        System.out.println(categories);
+
 
         // Create adapter passing in the sample user data
         System.out.println("Category sizeL: "+categories.size());

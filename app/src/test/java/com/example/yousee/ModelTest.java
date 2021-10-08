@@ -37,7 +37,7 @@ public class ModelTest {
         specs.put("clockSpeedBase", "1775");
         specs.put("clockSpeedBoost", "1837");
 
-        assertEquals(specs, item.getSpecs());
+        assertEquals(specs, item.listSpecs());
     }
 
 }
