@@ -17,7 +17,6 @@ import com.example.yousee.activity.ListActivity;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHolder> {
