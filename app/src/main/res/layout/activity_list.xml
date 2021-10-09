@@ -28,8 +28,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/return_button_bg"
                 android:contentDescription="Return button"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_left_arrow" />
+                android:scaleType="center"
+                android:src="@drawable/arrow_back" />
 
             <TextView
                 android:id="@+id/text_category"
