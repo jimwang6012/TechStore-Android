@@ -40,7 +40,8 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
             Toast.makeText(mContext, clickedCategory.getType() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, ListActivity.class);
-            intent.putExtra("category", clickedCategory.getType().toString());
+
+            intent.putExtra("category", clickedCategory.getType());
             intent.putExtra("description", clickedCategory.getDescription());
 
             mContext.startActivity(intent);
