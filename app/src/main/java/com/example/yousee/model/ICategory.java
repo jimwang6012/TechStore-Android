@@ -1,6 +1,8 @@
 package com.example.yousee.model;
 
-public interface ICategory {
+import java.io.Serializable;
+
+public interface ICategory extends Serializable {
 
     long getId();
     ItemType getType();

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.yousee.R;
 import com.example.yousee.adapter.ListAdapter;
+import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.model.ItemType;
 import com.example.yousee.util.DataProvider;
@@ -53,10 +54,11 @@ public class ListActivity extends AppCompatActivity {
         });
 
         intent = getIntent();
-        ItemType category = (ItemType) intent.getSerializableExtra("category");
-        vh.category.setText(category.toString());
-        vh.categoryDescription.setText(intent.getStringExtra("description"));
-        DataProvider.getItemsByCategory(res -> initList(res), category);
+        ICategory category = (ICategory) intent.getSerializableExtra("category");
+        ItemType type = category.getType();
+        vh.category.setText(type.toString());
+        vh.categoryDescription.setText(category.getDescription());
+        DataProvider.getItemsByCategory(res -> initList(res), type);
     }
 
     private void initList(ArrayList<IItem> res) {

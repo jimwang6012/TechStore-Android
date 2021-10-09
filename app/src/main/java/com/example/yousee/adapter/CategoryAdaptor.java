@@ -17,6 +17,7 @@ import com.example.yousee.activity.ListActivity;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHolder> {
@@ -40,9 +41,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
             Toast.makeText(mContext, clickedCategory.getType() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, ListActivity.class);
-
-            intent.putExtra("category", clickedCategory.getType());
-            intent.putExtra("description", clickedCategory.getDescription());
+            intent.putExtra("category", clickedCategory);
 
             mContext.startActivity(intent);
         }
