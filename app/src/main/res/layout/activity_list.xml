@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/image_back_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -27,7 +27,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/return_button_bg"
-                android:contentDescription="Item image"
+                android:contentDescription="Return button"
                 android:src="@drawable/ic_left_arrow" />
 
             <TextView
