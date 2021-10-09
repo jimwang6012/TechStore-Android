@@ -6,18 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.example.yousee.R;
-import com.example.yousee.adapter.CategoryAdaptor;
 import com.example.yousee.adapter.ListAdapter;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
-import com.example.yousee.util.MockDataProvider;
+import com.example.yousee.model.ItemType;
+import com.example.yousee.util.DataProvider;
 
 import java.util.ArrayList;
 
@@ -50,25 +47,25 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
         vh = new ViewHolder();
-        initList();
+
         //Return to previous activity
         vh.backButton.setOnClickListener(view -> {
             finish();
         });
 
         intent = getIntent();
-        vh.category.setText(intent.getStringExtra("category"));
-        vh.categoryDescription.setText(intent.getStringExtra("description"));
+        ICategory category = (ICategory) intent.getSerializableExtra("category");
+        ItemType type = category.getType();
+        vh.category.setText(type.toString());
+        vh.categoryDescription.setText(category.getDescription());
+        DataProvider.getItemsByCategory(res -> initList(res), type);
     }
 
-    private void initList () {
-
-
+    private void initList(ArrayList<IItem> res) {
         // Initialize Categories
-        items = MockDataProvider.generateData();
+        items = res;
 
         // Create adapter passing in the sample user data
-        System.out.println("Item list size: "+items.size());
         listAdapter = new ListAdapter(items);
         // Attach the adapter to the recyclerview to populate items
         vh.items.setAdapter(listAdapter);
