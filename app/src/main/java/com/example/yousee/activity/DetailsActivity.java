@@ -18,7 +18,10 @@ import java.util.ArrayList;
 public class DetailsActivity extends AppCompatActivity {
 
     ImageView backButton;
-    TextView info;
+    TextView itemName;
+    TextView itemCategory;
+    TextView itemPrice;
+    TextView itemInfo;
     Button descButton;
     Button specButton;
     TextView details;
@@ -37,7 +40,10 @@ public class DetailsActivity extends AppCompatActivity {
 
         backButton = (ImageView) findViewById(R.id.image_back_button);
         viewPager = (ViewPager) findViewById(R.id.vp_images);
-        info = (TextView) findViewById(R.id.tv_info);
+        itemName = (TextView) findViewById(R.id.tv_item_name);
+        itemCategory = (TextView) findViewById(R.id.tv_category);
+        itemPrice = (TextView) findViewById(R.id.tv_price);
+        itemInfo = (TextView) findViewById(R.id.tv_item_info);
         descButton = (Button) findViewById(R.id.btn_desc);
         specButton = (Button) findViewById(R.id.btn_spec);
         details = (TextView) findViewById(R.id.tv_details);
@@ -61,5 +67,22 @@ public class DetailsActivity extends AppCompatActivity {
         backButton.setOnClickListener(view -> {
             finish();
         });
+
+        initItemInfo();
     }
+
+    private void initItemInfo() {
+        itemName.setText(item.getName());
+        itemCategory.setText(item.getItemType().name());
+        itemPrice.setText("$" + String.valueOf(item.getPrice()));
+
+        String info = "";
+        info += "Brand: " + item.getBrand();
+        info += "\nStock: " + item.getStock();
+        info += "\nSold: " + item.getNumSold();
+        info += "\nViews: " + item.getNumViewed();
+
+        itemInfo.setText(info);
+    }
+
 }
