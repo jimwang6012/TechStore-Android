@@ -42,7 +42,15 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_images"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="300dp"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_image_tracker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"/>
 
         <TextView
             android:id="@+id/tv_item_name"

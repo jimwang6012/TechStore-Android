@@ -12,6 +12,7 @@ import com.example.yousee.R;
 import com.example.yousee.adapter.ViewPagerAdapter;
 import com.example.yousee.model.GPU;
 import com.example.yousee.model.IItem;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView details;
 
     ViewPager viewPager;
+    TabLayout tabLayout;
     ViewPagerAdapter viewPagerAdapter;
 
     IItem item;
@@ -43,6 +45,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         backButton = (ImageView) findViewById(R.id.image_back_button);
         viewPager = (ViewPager) findViewById(R.id.vp_images);
+        tabLayout = (TabLayout) findViewById(R.id.tl_image_tracker);
         itemName = (TextView) findViewById(R.id.tv_item_name);
         itemCategory = (TextView) findViewById(R.id.tv_category);
         itemPrice = (TextView) findViewById(R.id.tv_price);
@@ -58,6 +61,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         //Adding the Adapter to the ViewPager
         viewPager.setAdapter(viewPagerAdapter);
+
+        //Connect TabLayout tracker to ViewPager
+        tabLayout.setupWithViewPager(viewPager, true);
 
         //Placeholder
         ArrayList<String> urls = new ArrayList<>();
