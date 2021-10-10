@@ -14,6 +14,9 @@ import com.example.yousee.model.GPU;
 import com.example.yousee.model.IItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -69,6 +72,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         initItemInfo();
+        initDetailsButton();
     }
 
     private void initItemInfo() {
@@ -83,6 +87,29 @@ public class DetailsActivity extends AppCompatActivity {
         info += "\nViews: " + item.getNumViewed();
 
         itemInfo.setText(info);
+    }
+
+    private void initDetailsButton() {
+        descButton.setText("Description");
+        specButton.setText("Specification");
+
+        details.setText(item.getDescription());
+
+        descButton.setOnClickListener(view -> {
+            details.setText(item.getDescription());
+        });
+        specButton.setOnClickListener(view -> {
+            details.setText(convertMapToString(item.listSpecs()));
+        });
+    }
+
+    private String convertMapToString(Map<String, ?> map) {
+        StringBuilder mapString = new StringBuilder();
+        for (String key : map.keySet()) {
+            mapString.append(key + ": " + map.get(key) + "\n");
+        }
+        mapString.delete(mapString.length() - 1, mapString.length());
+        return mapString.toString();
     }
 
 }
