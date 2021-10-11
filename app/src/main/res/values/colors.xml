@@ -14,4 +14,6 @@
     <color name="blue_dark">#002F6C</color>
     <color name="red">#B71C1C</color>
     <color name="red_dark">#7F0000</color>
+    <color name="navy">#283137</color>
+    <color name="navy_dark">#383d40</color>
 </resources>

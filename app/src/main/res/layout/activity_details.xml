@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".activity.DetailsActivity">
 
     <LinearLayout
@@ -42,33 +43,46 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_images"
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="300dp"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_image_tracker"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:background="@color/black"
             app:tabBackground="@drawable/tab_selector"
             app:tabGravity="center"
-            app:tabIndicatorHeight="0dp"/>
+            app:tabIndicatorHeight="0dp" />
 
         <TextView
             android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:text="TextView" />
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="24sp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:background="@color/navy"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="47dp">
+            android:layout_height="wrap_content"
+            android:background="@color/navy">
 
             <TextView
                 android:id="@+id/tv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:text="TextView" />
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/rounded_bg"
+                android:maxLines="1"
+                android:paddingHorizontal="5dp"
+                android:layout_margin="10dp"
+                android:text="Category"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_price"
@@ -76,40 +90,64 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:text="TextView" />
+                android:paddingHorizontal="5dp"
+                android:layout_margin="10dp"
+                android:text="Price"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_item_info"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:text="TextView" />
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/navy"
+            android:text="Item Information"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/navy"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:background="@color/grey"
+                app:backgroundTint="@null"
+                android:text="Description" />
 
             <Button
                 android:id="@+id/btn_spec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Button" />
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:background="@color/navy_dark"
+                app:backgroundTint="@null"
+                android:text="Specification" />
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_margin="10dp"
+            android:text="Description / Specification"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </ScrollView>
