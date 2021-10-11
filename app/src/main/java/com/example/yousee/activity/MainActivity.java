@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         // populate database
         DataProvider.addDataToFirestore();
 
-
         //hide action bar
         getSupportActionBar().hide();
 
@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         searchBtn.setFocusable(false);
         searchBtn.setOnClickListener(view -> {
             System.out.println("Click on search btn");
-            Toast.makeText(getApplicationContext(), "Click on search btn", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
         });
     }
 
