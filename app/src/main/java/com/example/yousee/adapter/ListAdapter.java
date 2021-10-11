@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +31,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        CardView itemCard;
         LinearLayout strip;
         ImageView itemImage;
         TextView name;
@@ -38,6 +41,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            itemCard = itemView.findViewById(R.id.cv_item);
             strip = itemView.findViewById(R.id.ll_strip);
             itemImage = itemView.findViewById(R.id.image_item);
             name = itemView.findViewById(R.id.text_item);
@@ -53,7 +57,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
             Toast.makeText(mContext, clickedItem.getName() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(mContext, DetailActivity.class);
 //            mContext.startActivity(intent);
-
         }
     }
 
@@ -80,6 +83,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ListAdapter.ViewHolder holder, final int position) {
+
+        holder.itemCard.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.slide_transition));
 
         // Get the data object for the item view in this position
         IItem thisItem = mItems.get(position);

@@ -113,7 +113,7 @@ public class DataProvider {
         });
     }
 
-    public static void getItemByName(ItemCallBackManager callBackManager, String name){
+    public static void getItemsByName(ArrayItemCallBackManager callBackManager, String name){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").whereEqualTo("name",name).get().addOnCompleteListener(task -> {
@@ -125,8 +125,9 @@ public class DataProvider {
                         res.add(converted);
                     }
                 }
-                callBackManager.callbackFunction(res.get(0));
+                callBackManager.callbackFunction(res);
             }else{
+                callBackManager.callbackFunction(res);
                 System.out.println("fail to load the thing");
             }
         });

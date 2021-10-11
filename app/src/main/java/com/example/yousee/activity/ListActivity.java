@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.yousee.R;
@@ -21,13 +21,13 @@ import java.util.ArrayList;
 public class ListActivity extends AppCompatActivity {
 
     private class ViewHolder {
-        ImageView backButton;
+        ImageButton backButton;
         TextView category;
         TextView categoryDescription;
         RecyclerView items;
 
         public ViewHolder() {
-            backButton = (ImageView) findViewById(R.id.image_back_button);
+            backButton = (ImageButton) findViewById(R.id.image_back_button);
             category = (TextView) findViewById(R.id.text_category);
             categoryDescription = (TextView) findViewById((R.id.text_category_description));
             items = (RecyclerView) findViewById(R.id.rv_items);
