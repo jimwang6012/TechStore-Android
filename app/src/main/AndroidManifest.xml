@@ -13,6 +13,9 @@
             android:name=".activity.SearchActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.DetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.ListActivity"
             android:exported="true" />
         <activity

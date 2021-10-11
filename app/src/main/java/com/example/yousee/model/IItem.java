@@ -1,19 +1,20 @@
 package com.example.yousee.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public interface IItem {
-    public long getId();
-    public String getName();
-    public String getDescription();
-    public String getBrand();
-    public double getPrice();
-    public int getStock();
-    public ArrayList<String> getImageUrls();
-    public int getNumViewed();
-    public int getNumSold();
+public interface IItem extends Serializable {
+    long getId();
+    String getName();
+    String getDescription();
+    String getBrand();
+    double getPrice();
+    int getStock();
+    ArrayList<String> getImageUrls();
+    int getNumViewed();
+    int getNumSold();
 
-    public ItemType getItemType();
-    public HashMap<String, String> listSpecs();
+    ItemType getItemType();
+    HashMap<String, String> listSpecs();
 }

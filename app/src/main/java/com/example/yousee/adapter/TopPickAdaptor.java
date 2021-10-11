@@ -1,6 +1,7 @@
 package com.example.yousee.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yousee.activity.DetailsActivity;
+import com.example.yousee.activity.ListActivity;
 import com.example.yousee.model.IItem;
 import com.example.yousee.R;
 
@@ -37,6 +40,11 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
             // What to do when the view item is clicked
             IItem clickedItem = mItems.get(getAdapterPosition());
             Toast.makeText(mContext, clickedItem.getPrice() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(mContext, DetailsActivity.class);
+            intent.putExtra("item", clickedItem);
+
+            mContext.startActivity(intent);
         }
     }
 

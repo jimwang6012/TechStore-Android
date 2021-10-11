@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yousee.R;
+import com.example.yousee.activity.DetailsActivity;
 import com.example.yousee.activity.ListActivity;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
@@ -55,8 +56,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
             // What to do when the view item is clicked
             IItem clickedItem = mItems.get(getAdapterPosition());
             Toast.makeText(mContext, clickedItem.getName() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(mContext, DetailActivity.class);
-//            mContext.startActivity(intent);
+            Intent intent = new Intent(mContext, DetailsActivity.class);
+            intent.putExtra("item", clickedItem);
+
+            mContext.startActivity(intent);
         }
     }
 
