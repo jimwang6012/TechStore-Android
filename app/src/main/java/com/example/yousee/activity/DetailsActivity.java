@@ -3,6 +3,7 @@ package com.example.yousee.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.example.yousee.R;
 import com.example.yousee.adapter.ViewPagerAdapter;
 import com.example.yousee.model.GPU;
+import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -54,7 +56,21 @@ public class DetailsActivity extends AppCompatActivity {
         specButton = (Button) findViewById(R.id.btn_spec);
         details = (TextView) findViewById(R.id.tv_details);
 
-        int[] images = {R.drawable.img, R.drawable.img_1, R.drawable.img};
+        //Get Item from Intent
+        Intent intent = getIntent();
+        item = (IItem) intent.getSerializableExtra("item");
+
+        int[] images = new int[item.getImageUrls().size()];
+
+        int counter = 0;
+
+        for (String url : item.getImageUrls()) {
+            int i = getResources().getIdentifier(
+                    url, "drawable",
+                    getPackageName());
+            images[counter] = i;
+            counter++;
+        }
 
         //Initializing ViewPagerAdapter
         viewPagerAdapter = new ViewPagerAdapter(DetailsActivity.this, images);
@@ -64,13 +80,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         //Connect TabLayout tracker to ViewPager
         tabLayout.setupWithViewPager(viewPager, true);
-
-        //Placeholder
-        ArrayList<String> urls = new ArrayList<>();
-        urls.add("url here");
-        item = new GPU(1, "RTX 3060", "good description here",
-                "Gigabyte", 948.99, 4, urls, 10000, 300,
-                12, 1775, 1837);
 
         //Return to previous activity
         backButton.setOnClickListener(view -> {
@@ -99,15 +108,7 @@ public class DetailsActivity extends AppCompatActivity {
         descButton.setText("Description");
         specButton.setText("Specification");
 
-        details.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis arcu sed diam luctus eleifend ut quis lacus. Praesent a leo vehicula, ornare sem tincidunt, porta ex. Sed vitae mi et justo accumsan laoreet nec id nunc. Pellentesque orci metus, porttitor id est at, ultrices iaculis nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent lacinia pharetra augue vel scelerisque. Maecenas id tellus pharetra sem suscipit aliquam.\n" +
-                "\n" +
-                "Maecenas eget neque semper, varius lorem sit amet, luctus quam. Vestibulum feugiat ipsum at varius commodo. Aliquam erat volutpat. Nam rhoncus at lorem vel ultrices. Maecenas aliquam rutrum est id congue. Proin tempor leo sed nulla lacinia volutpat. Proin dapibus nisi eu sapien condimentum, at lobortis odio accumsan. Nullam at massa vel eros consequat dignissim ac a leo. Pellentesque euismod ipsum at elit pharetra, vitae sollicitudin justo eleifend. Quisque pellentesque nisl vitae massa ultricies, sit amet euismod metus porttitor. Pellentesque bibendum felis neque. Curabitur consequat mauris ut eros gravida, vel rhoncus ex sodales. Suspendisse potenti. Praesent porta elit sit amet lectus scelerisque pulvinar.\n" +
-                "\n" +
-                "Pellentesque venenatis nunc sed orci egestas, sit amet aliquam arcu condimentum. Mauris posuere turpis tincidunt lectus cursus vehicula. Mauris nec magna justo. Fusce feugiat sit amet sapien at maximus. In ut massa bibendum neque luctus faucibus. Nullam sed ante id felis dictum laoreet. Aliquam erat volutpat. Nullam vestibulum dictum purus. Aenean varius semper accumsan. Cras vel lobortis justo, id viverra libero. Proin ultrices cursus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget placerat neque, id venenatis leo. In eu erat vel tortor molestie tempus ut ac felis. Sed accumsan auctor vehicula. Morbi eros risus, ultricies nec dolor venenatis, rhoncus tristique elit.\n" +
-                "\n" +
-                "Nullam consequat felis est, at sollicitudin turpis finibus at. Maecenas tellus libero, imperdiet sed pharetra eu, feugiat placerat nibh. Nam at eros nec lectus condimentum facilisis. Aenean tellus neque, fermentum posuere turpis vitae, accumsan congue urna. Pellentesque laoreet mollis arcu, vulputate venenatis odio ornare ac. In arcu justo, euismod in mauris vitae, finibus tempus neque. Vivamus interdum dui leo, et hendrerit ante posuere id. Mauris facilisis cursus lectus, a cursus mi sagittis ac. Vivamus vestibulum ultrices mauris vitae porttitor. Suspendisse in fringilla nisl. Nulla facilisi. Aenean vel turpis a velit condimentum blandit. Etiam mauris ligula, consequat nec ex in, cursus varius libero. Maecenas nec convallis nibh. Proin non consequat massa, at convallis diam. Morbi nisi justo, cursus a velit ut, ullamcorper rutrum tortor.\n" +
-                "\n" +
-                "Fusce ipsum metus, consequat ac erat ac, dapibus malesuada felis. Sed et magna commodo, vehicula ex quis, condimentum dolor. Aenean velit sem, lacinia at ligula eget, ultricies rhoncus risus. Nullam rhoncus nibh vel congue aliquam. Duis a sapien vitae mauris congue ultricies eget nec enim. Proin convallis, velit vitae mollis interdum, purus arcu eleifend velit, ac consequat massa magna id ante. Mauris tincidunt, justo at auctor aliquet, nulla orci aliquet felis, et hendrerit nibh augue sed nisi. Curabitur a lectus ac tortor convallis maximus ac at libero. Mauris lorem lectus, rutrum in sodales at, pretium ac diam. Curabitur dui dui, volutpat sed ipsum sed, gravida consequat metus. Mauris finibus convallis felis eu ornare.");
+        details.setText(item.getDescription());
 
         descButton.setOnClickListener(view -> {
             details.setText(item.getDescription());

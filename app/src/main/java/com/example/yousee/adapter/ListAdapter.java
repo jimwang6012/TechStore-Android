@@ -53,8 +53,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
             IItem clickedItem = mItems.get(getAdapterPosition());
             Toast.makeText(mContext, clickedItem.getName() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(mContext, DetailsActivity.class);
-            mContext.startActivity(intent);
+            intent.putExtra("item", clickedItem);
 
+            mContext.startActivity(intent);
         }
     }
 
