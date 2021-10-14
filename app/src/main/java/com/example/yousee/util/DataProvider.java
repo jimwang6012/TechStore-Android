@@ -230,9 +230,9 @@ public class DataProvider {
 
     private static List<GPU> getSampleGPUData(){
         List<GPU> itemList = new ArrayList<>();
-        itemList.add(new GPU(31, "RTX 3060", "good description here",
-                "Gigabyte", 98.99, 4, new ArrayList<String>(Arrays.asList("img","img_1")), 50000, 300,
-                12, 1775, 1837));
+        itemList.add(new GPU(31, "GeForce GT 1030", "The new NVIDIA GeForce® GT 1030, powered by the award-winning NVIDIA Pascal™ architecture, accelerates your entire PC experience. Its powerful graphics engine and state-of-the-art technologies provide a performance upgrade to drive today's most demanding PC applications.",
+                "Gigabyte", 1178.99, 4, new ArrayList<String>(Arrays.asList("rtx3060_0","img_1")), 50000, 300,
+                12, 1775, 1695));
         itemList.add(new GPU(32, "RTX 3060", "good description here",
                 "Gigabyte", 948.99, 4, new ArrayList<String>(Arrays.asList("img","img_1")), 10000, 300,
                 12, 1775, 1837));
