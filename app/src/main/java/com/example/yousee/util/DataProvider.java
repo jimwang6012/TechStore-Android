@@ -116,7 +116,7 @@ public class DataProvider {
     public static void getItemsByName(ArrayItemCallBackManager callBackManager, String name){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Item").whereEqualTo("name",name).get().addOnCompleteListener(task -> {
+        db.collection("Item").whereGreaterThanOrEqualTo("name",name).whereLessThanOrEqualTo("name",name+"\uF7FF").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("successfully finish");
                 for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
