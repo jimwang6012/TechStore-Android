@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yousee.activity.DetailsActivity;
@@ -28,12 +29,14 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
 
         ImageView imageView;
         TextView nameTextView;
+        CardView imageWrapperView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             imageView = itemView.findViewById(R.id.image_view);
             nameTextView = itemView.findViewById(R.id.name);
+            imageWrapperView = itemView.findViewById((R.id.image_wrapper_view));
         }
         @Override
         public void onClick(View v) {
@@ -73,7 +76,7 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
 
-        holder.imageView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fall_transition));
+        holder.imageWrapperView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fall_transition));
 
         // Get the data object for the item view in this position
         IItem thisItem = mItems.get(position);
