@@ -63,10 +63,10 @@ public class CPU extends Item{
 
     public HashMap<String, String> listSpecs() {
         HashMap<String, String> specs = new HashMap<>();
-        specs.put("coreCount", String.valueOf(_coreCount));
-        specs.put("socketType", _socketType);
-        specs.put("clockSpeedBase", String.valueOf(_clockSpeedBase));
-        specs.put("clockSpeedBoost", String.valueOf(_clockSpeedBoost));
+        specs.put("Core Count", _coreCount + " Cores");
+        specs.put("Socket Type", _socketType);
+        specs.put("Clock Speed Base", _clockSpeedBase / 1000 + " GHz");
+        specs.put("Clock Speed Boost", _clockSpeedBoost / 1000 + " GHz");
         return specs;
     }
 

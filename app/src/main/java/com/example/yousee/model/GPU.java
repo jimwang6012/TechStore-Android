@@ -55,9 +55,9 @@ public class GPU extends Item{
 
     public HashMap<String, String> listSpecs() {
         HashMap<String, String> specs = new HashMap<>();
-        specs.put("memorySize", String.valueOf(_memorySize));
-        specs.put("clockSpeedBase", String.valueOf(_clockSpeedBase));
-        specs.put("clockSpeedBoost", String.valueOf(_clockSpeedBoost));
+        specs.put("Memory Size", _memorySize + " GB");
+        specs.put("Clock Speed Base", _clockSpeedBase + " MHz");
+        specs.put("Clock Speed Boost", _clockSpeedBoost + " MHz");
         return specs;
     }
 

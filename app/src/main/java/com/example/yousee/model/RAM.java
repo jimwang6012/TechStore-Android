@@ -63,10 +63,10 @@ public class RAM extends Item{
 
     public HashMap<String, String> listSpecs() {
         HashMap<String, String> specs = new HashMap<>();
-        specs.put("memoryType", _memoryType);
-        specs.put("capacity", String.valueOf(_capacity));
-        specs.put("speed", String.valueOf(_speed));
-        specs.put("latency", _latency);
+        specs.put("Memory Type", _memoryType);
+        specs.put("Capacity", _capacity + " GB");
+        specs.put("Speed", _speed + " MHz");
+        specs.put("Latency", _latency);
         return specs;
     }
 
