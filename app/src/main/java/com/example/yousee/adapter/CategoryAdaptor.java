@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -37,7 +36,6 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         public void onClick(View v) {
             // What to do when the view categoy is clicked
             ICategory clickedCategory = mCategories.get(getAdapterPosition());
-            Toast.makeText(mContext, clickedCategory.getType() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, ListActivity.class);
             intent.putExtra("category", clickedCategory);

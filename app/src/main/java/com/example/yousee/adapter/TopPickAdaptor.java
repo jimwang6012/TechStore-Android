@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -42,7 +41,6 @@ public class TopPickAdaptor extends RecyclerView.Adapter<TopPickAdaptor.ViewHold
         public void onClick(View v) {
             // What to do when the view item is clicked
             IItem clickedItem = mItems.get(getAdapterPosition());
-            Toast.makeText(mContext, clickedItem.getPrice() + " is clicked in position " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(mContext, DetailsActivity.class);
             intent.putExtra("item", clickedItem);
