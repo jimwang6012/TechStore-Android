@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
         txTopSell.setEnabled(true);
         txTopPick.setEnabled(false);
 
-        txTopSell.setBackgroundColor(getResources().getColor(R.color.black));
-        txTopPick.setBackgroundColor(getResources().getColor(R.color.grey));
+        txTopSell.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        txTopPick.setBackground(getDrawable(R.drawable.grey_bg_shadow));
         initTopPickPanel();
     }
 
@@ -165,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
         txTopSell.setEnabled(false);
         txTopPick.setEnabled(true);
 
-        txTopPick.setBackgroundColor(getResources().getColor(R.color.black));
-        txTopSell.setBackgroundColor(getResources().getColor(R.color.grey));
+        txTopPick.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        txTopSell.setBackground(getDrawable(R.drawable.grey_bg_shadow));
 
         initTopSellPanel();
     }
