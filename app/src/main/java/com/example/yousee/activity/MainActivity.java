@@ -1,32 +1,42 @@
 package com.example.yousee.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.yousee.adapter.CategoryAdaptor;
-import com.example.yousee.adapter.TopPickAdaptor;
+import com.example.yousee.adapter.ListAdapter;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.R;
 import com.example.yousee.util.DataProvider;
-import com.example.yousee.util.MockDataProvider;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<IItem> items;
     ArrayList<ICategory> categories;
-    TopPickAdaptor topPickAdaptor;
+    ListAdapter topPickAdaptor;
+    ListAdapter topSellAdaptor;
     CategoryAdaptor categoryAdaptor;
     EditText searchBtn;
-    RecyclerView rvTopPickItems;
+    RecyclerView rvTopItems;
     RecyclerView rvCategories;
+
+    LinearLayout switchPanel;
+    Button txTopSell;
+    Button txTopPick;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,27 +67,55 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
+     * initialise the Top Sell panel on the MainActivity
+     */
+    private void initTopSellPanel() {
+        // Lookup the recyclerview in activity layout
+        rvTopItems = (RecyclerView) findViewById(R.id.rvTop);
+        DataProvider.getTopSellingItems(res -> populateTopSellAdaptor(res),15);
+    }
+
+
+
+    /**
      * initialise the Top Pick panel on the MainActivity
      */
     private void initTopPickPanel() {
         // Lookup the recyclerview in activity layout
-        rvTopPickItems = (RecyclerView) findViewById(R.id.rvTopPick);
-        DataProvider.getTopViewedItems(res -> populateTopPickAdaptor(res),5);
+        rvTopItems = (RecyclerView) findViewById(R.id.rvTop);
+        DataProvider.getTopViewedItems(res -> populateTopPickAdaptor(res),15);
     }
 
     private void populateTopPickAdaptor(ArrayList<IItem> items) {
 
         // Create adapter passing in the sample user data
-        topPickAdaptor = new TopPickAdaptor(items);
+        topPickAdaptor = new ListAdapter(items);
         // Attach the adapter to the recyclerview to populate items
-        rvTopPickItems.setAdapter(topPickAdaptor);
+        rvTopItems.setAdapter(topPickAdaptor);
 
         // an Horizontal RecyclerView
-        LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager lm = new LinearLayoutManager(this);
 
         // Set layout manager to position the items
-        rvTopPickItems.setLayoutManager(lm);
+        rvTopItems.setLayoutManager(lm);
     }
+
+
+    private void populateTopSellAdaptor(ArrayList<IItem> items) {
+
+        // Create adapter passing in the sample user data
+        topSellAdaptor = new ListAdapter(items);
+        // Attach the adapter to the recyclerview to populate items
+        rvTopItems.setAdapter(topSellAdaptor);
+
+        // an Horizontal RecyclerView
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+
+        // Set layout manager to position the items
+        rvTopItems.setLayoutManager(lm);
+    }
+
+
 
     /**
      * initialise the Category panel on the MainActivity
@@ -102,9 +140,35 @@ public class MainActivity extends AppCompatActivity {
         rvCategories.setAdapter(categoryAdaptor);
 
         // an verticaL RecyclerView
-        LinearLayoutManager lm = new LinearLayoutManager(this);
+        LinearLayoutManager lm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
 
         // Set layout manager to position the items
         rvCategories.setLayoutManager(lm);
     }
+
+    public void toTopPick(View view) {
+        txTopSell = (Button) findViewById(R.id.textTopSell);
+        txTopPick = (Button) findViewById(R.id.textTopPick);
+        txTopSell.setEnabled(true);
+        txTopPick.setEnabled(false);
+
+        txTopSell.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        txTopPick.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        initTopPickPanel();
+    }
+
+
+    public void toTopSell(View view) {
+        txTopSell = (Button) findViewById(R.id.textTopSell);
+        txTopPick = (Button) findViewById(R.id.textTopPick);
+
+        txTopSell.setEnabled(false);
+        txTopPick.setEnabled(true);
+
+        txTopPick.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        txTopSell.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+
+        initTopSellPanel();
+    }
+
 }
