@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape>
-            <gradient
-                android:startColor="@color/green"
-                android:endColor="@color/green_dark"
-                android:type="linear" />
+        <shape android:layout_width="80dp" android:layout_height="80dp">
+            <gradient android:endColor="@color/green_dark" android:startColor="@color/green" android:type="linear" />
             <corners android:radius="40dp" />
-
         </shape>
     </item>
 </selector>
