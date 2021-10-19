@@ -117,7 +117,7 @@ public class SearchActivity extends AppCompatActivity {
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            view.clearFocus();
         }
-        view.clearFocus();
     }
 }
