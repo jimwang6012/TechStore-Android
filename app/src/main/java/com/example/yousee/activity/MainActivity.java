@@ -55,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        txTopSell = (Button) findViewById(R.id.textTopSell);
+        txTopPick = (Button) findViewById(R.id.textTopPick);
+        txTopSell.setEnabled(true);
+        txTopPick.setEnabled(false);
+        txTopSell.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        txTopPick.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        initTopPickPanel();
+    }
+
     private void initSearchBtn() {
         searchBtn = (EditText) findViewById(R.id.search_button);
         searchBtn.setFocusable(false);
