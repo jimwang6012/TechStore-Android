@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,7 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
 
         ImageView imageView;
         TextView nameTextView;
-        CardView imageWrapperView;
+        LinearLayout imageWrapperView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +92,18 @@ public class CategoryAdaptor extends RecyclerView.Adapter<CategoryAdaptor.ViewHo
         //Setting the icon
         holder.imageView.setImageResource(i);
         holder.nameTextView.setText(thisItem.getType().name());
+        switch (thisItem.getType()) {
+            case GPU:
+                holder.imageWrapperView.setBackground(mContext.getDrawable(R.drawable.gpu_linear_gradient_rounded));
+                break;
+            case CPU:
+                holder.imageWrapperView.setBackground(mContext.getDrawable(R.drawable.cpu_linear_gradient_rounded));
+                break;
+            case RAM:
+                holder.imageWrapperView.setBackground(mContext.getDrawable(R.drawable.ram_linear_gradient_rounded));
+                break;
+        }
+
     }
 
 
