@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="100dp"
@@ -16,22 +16,22 @@
         android:layout_gravity="center"
         android:background="@color/black"
         android:orientation="vertical">
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:id="@+id/image_wrapper_view"
             android:layout_gravity="center"
-            android:background="@color/black"
+            android:gravity="center"
             android:layout_width="80dp"
-            android:layout_height="80dp">
+            android:layout_height="80dp"
+            android:background="@drawable/cpu_linear_gradient_rounded"
+            >
 
             <ImageView
                 android:id="@+id/image_view"
-                android:layout_width="80dp"
-                android:background="@color/black"
-                android:layout_height="80dp"
-                android:src="@drawable/cat_cpu"
+                android:layout_width="55dp"
+                android:layout_height="49dp"
                 android:layout_gravity="center"
-                android:scaleType="centerCrop" />
-        </androidx.cardview.widget.CardView>
+                android:src="@drawable/cat_cpu"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/name"
@@ -47,5 +47,5 @@
     </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>
 
