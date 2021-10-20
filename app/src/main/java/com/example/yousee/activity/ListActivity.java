@@ -80,7 +80,16 @@ public class ListActivity extends AppCompatActivity {
         vh.searchField.setOnEditorActionListener((v, actionId, event) -> {
 
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                dataProvider.getItemsByName(res -> initList(res),v.getText().toString(),type);
+                ArrayList<IItem> res = new ArrayList<>();
+                for (IItem item: items){
+                    if(item.getName().toLowerCase().contains(v.getText().toString().toLowerCase())){
+                           res.add(item);
+                    }
+                }
+                polpulateRVItems(res);
+
+
+
                 hideKeyboard();
                 return true;
             }
@@ -97,6 +106,10 @@ public class ListActivity extends AppCompatActivity {
         // Initialize Categories
         items = res;
 
+        polpulateRVItems(items);
+    }
+
+    private void polpulateRVItems(ArrayList<IItem> items) {
         // Create adapter passing in the sample user data
         listAdapter = new ListAdapter(items);
         // Attach the adapter to the recyclerview to populate items
