@@ -15,6 +15,7 @@ import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.model.ItemType;
 import com.example.yousee.util.DataProvider;
+import com.example.yousee.util.IDataProvider;
 
 import java.util.ArrayList;
 
@@ -39,9 +40,13 @@ public class ListActivity extends AppCompatActivity {
     ArrayList<IItem> items;
     Intent intent;
 
+    IDataProvider dataProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dataProvider = new DataProvider();
+
         //hide action bar
         getSupportActionBar().hide();
         setContentView(R.layout.activity_list);
@@ -58,7 +63,7 @@ public class ListActivity extends AppCompatActivity {
         ItemType type = category.getType();
         vh.category.setText(type.toString());
         vh.categoryDescription.setText(category.getDescription());
-        DataProvider.getItemsByCategory(res -> initList(res), type);
+        dataProvider.getItemsByCategory(res -> initList(res), type);
     }
 
     private void initList(ArrayList<IItem> res) {
