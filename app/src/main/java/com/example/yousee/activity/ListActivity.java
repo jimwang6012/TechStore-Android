@@ -2,6 +2,7 @@ package com.example.yousee.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,8 @@ public class ListActivity extends AppCompatActivity {
         RecyclerView items;
         EditText searchField;
         CoordinatorLayout coordinatorLayout;
+        NestedScrollView nestedScrollView;
+        TextView message;
 
         public ViewHolder() {
             backButton = (ImageButton) findViewById(R.id.image_back_button);
@@ -42,6 +45,8 @@ public class ListActivity extends AppCompatActivity {
             items = (RecyclerView) findViewById(R.id.rv_items);
             searchField = (EditText) findViewById(R.id.search_button);
             coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_list);
+            nestedScrollView = (NestedScrollView) findViewById(R.id.nsv_items);
+            message = (TextView) findViewById(R.id.text_message);
         }
     }
 
@@ -86,9 +91,14 @@ public class ListActivity extends AppCompatActivity {
                            res.add(item);
                     }
                 }
-                polpulateRVItems(res);
-
-
+                if (res.isEmpty()) {
+                    vh.nestedScrollView.setVisibility(View.GONE);
+                    vh.message.setVisibility(View.VISIBLE);
+                } else {
+                    vh.nestedScrollView.setVisibility(View.VISIBLE);
+                    vh.message.setVisibility(View.GONE);
+                    polpulateRVItems(res);
+                }
 
                 hideKeyboard();
                 return true;
