@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.yousee.R;
@@ -35,7 +36,7 @@ public class ListActivity extends AppCompatActivity {
         RecyclerView items;
         EditText searchField;
         CoordinatorLayout coordinatorLayout;
-        NestedScrollView nestedScrollView;
+        LinearLayout linearLayout;
         TextView message;
 
         public ViewHolder() {
@@ -45,7 +46,7 @@ public class ListActivity extends AppCompatActivity {
             items = (RecyclerView) findViewById(R.id.rv_items);
             searchField = (EditText) findViewById(R.id.search_button);
             coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_list);
-            nestedScrollView = (NestedScrollView) findViewById(R.id.nsv_items);
+            linearLayout = (LinearLayout) findViewById(R.id.ll_items);
             message = (TextView) findViewById(R.id.text_message);
         }
     }
@@ -92,10 +93,10 @@ public class ListActivity extends AppCompatActivity {
                     }
                 }
                 if (res.isEmpty()) {
-                    vh.nestedScrollView.setVisibility(View.GONE);
+                    vh.linearLayout.setVisibility(View.GONE);
                     vh.message.setVisibility(View.VISIBLE);
                 } else {
-                    vh.nestedScrollView.setVisibility(View.VISIBLE);
+                    vh.linearLayout.setVisibility(View.VISIBLE);
                     vh.message.setVisibility(View.GONE);
                     polpulateRVItems(res);
                 }

@@ -97,11 +97,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_items"
+    <LinearLayout
+        android:id="@+id/ll_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -114,7 +115,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             tools:listitem="@layout/list_item" />
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_message"
