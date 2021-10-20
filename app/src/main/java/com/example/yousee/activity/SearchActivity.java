@@ -20,6 +20,7 @@ import com.example.yousee.R;
 import com.example.yousee.adapter.ListAdapter;
 import com.example.yousee.model.IItem;
 import com.example.yousee.util.DataProvider;
+import com.example.yousee.util.IDataProvider;
 
 import java.util.ArrayList;
 
@@ -45,12 +46,13 @@ public class SearchActivity extends AppCompatActivity {
     ListAdapter listAdapter;
     ArrayList<IItem> items;
     Intent intent;
+    IDataProvider dataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        dataProvider = new DataProvider();
         //hide action bar
         getSupportActionBar().hide();
 
@@ -71,7 +73,7 @@ public class SearchActivity extends AppCompatActivity {
         //perform search when submit
         vh.searchField.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                DataProvider.getItemsByName(res -> initList(res),v.getText().toString());
+                dataProvider.getItemsByName(res -> initList(res),v.getText().toString());
                 hideKeyboard();
                 return true;
             }
@@ -117,7 +119,7 @@ public class SearchActivity extends AppCompatActivity {
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            view.clearFocus();
         }
-        view.clearFocus();
     }
 }

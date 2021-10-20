@@ -14,6 +14,8 @@ import com.example.yousee.adapter.ViewPagerAdapter;
 import com.example.yousee.model.GPU;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
+import com.example.yousee.util.DataProvider;
+import com.example.yousee.util.IDataProvider;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -37,14 +39,17 @@ public class DetailsActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
 
     IItem item;
+    IDataProvider dataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dataProvider = new DataProvider();
+
         setContentView(R.layout.activity_details);
         //hide action bar
         getSupportActionBar().hide();
-
         backButton = (ImageView) findViewById(R.id.image_back_button);
         viewPager = (ViewPager) findViewById(R.id.vp_images);
         tabLayout = (TabLayout) findViewById(R.id.tl_image_tracker);
@@ -59,6 +64,8 @@ public class DetailsActivity extends AppCompatActivity {
         //Get Item from Intent
         Intent intent = getIntent();
         item = (IItem) intent.getSerializableExtra("item");
+
+        dataProvider.incrementItemNumViewed(item);
 
         int[] images = new int[item.getImageUrls().size()];
 

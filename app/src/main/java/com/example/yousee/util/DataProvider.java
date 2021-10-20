@@ -13,7 +13,9 @@ import com.example.yousee.model.ItemType;
 import com.example.yousee.model.RAM;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -29,22 +31,10 @@ import java.util.Objects;
  * handle the action after the request is completed.
  *
  */
-public class DataProvider {
-
-    public interface CategoryCallBackManager{
-        void callbackFunction(@NonNull ArrayList<ICategory> res);
-    }
-
-    public interface ItemCallBackManager{
-        void callbackFunction(@NonNull IItem res);
-    }
-
-    public interface ArrayItemCallBackManager{
-        void callbackFunction(@NonNull ArrayList<IItem> res);
-    }
+public class DataProvider implements IDataProvider {
 
 
-    public static void getCategories(@NonNull CategoryCallBackManager callBackManager){
+    public void getCategories(@NonNull CategoryCallBackManager callBackManager){
         ArrayList<ICategory> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Category").get().addOnCompleteListener(task -> {
@@ -58,7 +48,7 @@ public class DataProvider {
         });
     }
 
-    public static void getAllItems(ArrayItemCallBackManager callBackManager){
+    public void getAllItems(ArrayItemCallBackManager callBackManager){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").get().addOnCompleteListener(task -> {
@@ -79,7 +69,7 @@ public class DataProvider {
     }
 
 
-    public static void getItemsByCategory(ArrayItemCallBackManager callBackManager, ItemType itemType){
+    public void getItemsByCategory(ArrayItemCallBackManager callBackManager, ItemType itemType){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").whereEqualTo("itemType",itemType.name()).get().addOnCompleteListener(task -> {
@@ -98,7 +88,7 @@ public class DataProvider {
         });
     }
 
-    public static void getItemById(ItemCallBackManager callBackManager, long id){
+    public void getItemById(ItemCallBackManager callBackManager, long id){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").document(String.valueOf(id)).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -113,7 +103,7 @@ public class DataProvider {
         });
     }
 
-    public static void getItemsByName(ArrayItemCallBackManager callBackManager, String name){
+    public void getItemsByName(ArrayItemCallBackManager callBackManager, String name){
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").whereGreaterThanOrEqualTo("name",name).whereLessThanOrEqualTo("name",name+"\uF8FF").get().addOnCompleteListener(task -> {
@@ -133,15 +123,35 @@ public class DataProvider {
         });
     }
 
-    public static void getTopViewedItems(ArrayItemCallBackManager callBackManager, int numOfItems){
+    public void getItemsByName(ArrayItemCallBackManager callBackManager, String name, ItemType category){
+        ArrayList<IItem> res = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Item").whereEqualTo("itemType",category.name()).whereGreaterThanOrEqualTo("name",name).whereLessThanOrEqualTo("name",name+"\uF8FF").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                System.out.println("successfully finish");
+                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                    IItem converted = documentToItem(snapshot);
+                    if (converted != null) {
+                        res.add(converted);
+                    }
+                }
+                callBackManager.callbackFunction(res);
+            }else{
+                callBackManager.callbackFunction(res);
+                System.out.println("fail to load the thing");
+            }
+        });
+    }
+
+    public void getTopViewedItems(ArrayItemCallBackManager callBackManager, int numOfItems){
         getSortedItems(callBackManager, numOfItems, "numViewed");
     }
 
-    public static void getTopSellingItems(ArrayItemCallBackManager callBackManager, int numOfItems){
+    public void getTopSellingItems(ArrayItemCallBackManager callBackManager, int numOfItems){
         getSortedItems(callBackManager, numOfItems, "numSold");
     }
 
-    private static void getSortedItems(ArrayItemCallBackManager callBackManager, int numOfItems, String sortParam) {
+    private void getSortedItems(ArrayItemCallBackManager callBackManager, int numOfItems, String sortParam) {
         ArrayList<IItem> res = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Item").orderBy(sortParam, Query.Direction.DESCENDING).limit(numOfItems).get().addOnCompleteListener(task -> {
@@ -160,13 +170,19 @@ public class DataProvider {
         });
     }
 
+    public void incrementItemNumViewed(IItem item){
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = db.collection("Item").document(String.valueOf(item.getId()));
+
+        documentReference.update("numViewed", FieldValue.increment(1));
+    }
 
 
     /**
      * @param snapshot generated by Firebase after a query
      */
-    private static IItem documentToItem( DocumentSnapshot snapshot) {
+    private IItem documentToItem( DocumentSnapshot snapshot) {
         if(Objects.equals(snapshot.get("itemType"), "RAM")){
             return snapshot.toObject(RAM.class);
         }else if (Objects.equals(snapshot.get("itemType"), "CPU")){
@@ -180,40 +196,21 @@ public class DataProvider {
 
 
     // Add number documents to Firestore
-    public static void addDataToFirestore() {
+    public void addDataToFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //has to do them separately so that the field matches exactly
-        List<GPU> gpuList = getSampleGPUData();
-        List<CPU> cpuList = getSampleCPUData();
-        List<RAM> ramList = getSampleRAMData();
-        for (GPU item : gpuList) {
-            db.collection("Item").document(String.valueOf(item.getId())).set(item).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d("item Collection Add", "item " + item.getId() + " added.");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("item Collection Add", "item " + item.getId() + "not added.");
-                }
-            });
-        }
-        for (CPU item : cpuList) {
-            db.collection("Item").document(String.valueOf(item.getId())).set(item).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d("item Collection Add", "item " + item.getId() + " added.");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("item Collection Add", "item " + item.getId() + "not added.");
-                }
-            });
-        }
-        for (RAM item : ramList) {
+        List<IItem> gpuList = getSampleGPUData();
+        List<IItem> cpuList = getSampleCPUData();
+        List<IItem> ramList = getSampleRAMData();
+        addArrayToDb(db, gpuList);
+        addArrayToDb(db, cpuList);
+        addArrayToDb(db, ramList);
+
+    }
+
+    private void addArrayToDb(FirebaseFirestore db, List<IItem> itemList) {
+        for (IItem item : itemList) {
             db.collection("Item").document(String.valueOf(item.getId())).set(item).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
@@ -229,77 +226,77 @@ public class DataProvider {
     }
 
 
-    private static List<GPU> getSampleGPUData(){
-        List<GPU> itemList = new ArrayList<>();
+    private List<IItem> getSampleGPUData(){
+        List<IItem> itemList = new ArrayList<>();
         itemList.add(new GPU(30, "NVIDIA GeForce GT 1030", "The new NVIDIA GeForce® GT 1030, powered by the award-winning NVIDIA Pascal™ architecture, accelerates your entire PC experience. Its powerful graphics engine and state-of-the-art technologies provide a performance upgrade to drive today's most demanding PC applications.",
-                "Gigabyte", 1178.99, 4, new ArrayList<String>(Arrays.asList("gt1030_0","gt1030_1","gt1030_2")), 50000, 300,
+                "Gigabyte", 1178.99, 4, new ArrayList<String>(Arrays.asList("gt1030_0","gt1030_1","gt1030_2")), 1000, 301,
                 2, 1151, 1379));
         itemList.add(new GPU(31, "NVIDIA GeForce RTX 3060", "The EVGA GeForce® RTX 3060 12GB provides players with the ability to vanquish 1080p and 1440p gaming, while providing a quality NVIDIA RTX™ experience and a myriad of productivity benefits.",
-                "Gigabyte", 999.99, 14, new ArrayList<String>(Arrays.asList("rtx3060_0","rtx3060_1","rtx3060_2","rtx3060_3","rtx3060_4")), 1000, 30,
+                "Gigabyte", 999.99, 14, new ArrayList<String>(Arrays.asList("rtx3060_0","rtx3060_1","rtx3060_2","rtx3060_3","rtx3060_4")), 1000, 300,
                 12, 1775, 1882));
         itemList.add(new GPU(32, "NVIDIA GeForce RTX 3060 TI", "ASUS Dual GeForce RTX™ 3060 Ti V2 OC Edition 8GB GDDR6 with LHR features two powerful Axial-tech fans for AAA gaming performance and ray tracing.",
-                "Gigabyte", 998.99, 4, new ArrayList<String>(Arrays.asList("rtx3060ti_0","rtx3060ti_1","rtx3060ti_2","rtx3060ti_3","rtx3060ti_4")), 10000, 300,
+                "Gigabyte", 998.99, 4, new ArrayList<String>(Arrays.asList("rtx3060ti_0","rtx3060ti_1","rtx3060ti_2","rtx3060ti_3","rtx3060ti_4")), 1000, 300,
                 14, 1720, 1845));
         itemList.add(new GPU(33, "GeForce RTX 3070", "ASUS KO GeForce RTX™ 3070 V2 OC Edition 8GB GDDR6 with LHR adds a touch of flair to the next-gen gaming experience.",
-                "Gigabyte", 1174.99, 4, new ArrayList<String>(Arrays.asList("rtx3070oc_0","rtx3070oc_1","rtx3070oc_2","rtx3070oc_3")), 10000, 300,
+                "Gigabyte", 1174.99, 4, new ArrayList<String>(Arrays.asList("rtx3070oc_0","rtx3070oc_1","rtx3070oc_2","rtx3070oc_3")), 1000, 300,
                 12, 1775, 1837));
 
 
         itemList.add(new GPU(34, "RTX 3070", "TUF Gaming GeForce RTX™ 3070 Ti OC Edition 8GB GDDR6X buffed-up design with chart-topping thermal performance.",
-                "ASUS", 1749.99, 4, new ArrayList<String>(Arrays.asList("rtx3070ti_0","rtx3070ti_1","rtx3070ti_2")), 10000, 300,
+                "ASUS", 1749.99, 4, new ArrayList<String>(Arrays.asList("rtx3070ti_0","rtx3070ti_1","rtx3070ti_2")), 1000, 300,
                 8, 1775, 1837));
 
         itemList.add(new GPU(35, "GeForce RTX 3080 Ti", "The EVGA GeForce RTX 3080 FTW3 Ultra delivers the exceptional performance that gamers crave for 4K resolution gaming.",
-                "Gigabyte", 2648.99, 4, new ArrayList<String>(Arrays.asList("rtx3080tiftw3_0","rtx3080tiftw3_1","rtx3080tiftw3_2","rtx3080tiftw3_3")), 10000, 300,
+                "Gigabyte", 2648.99, 4, new ArrayList<String>(Arrays.asList("rtx3080tiftw3_0","rtx3080tiftw3_1","rtx3080tiftw3_2","rtx3080tiftw3_3")), 1000, 300,
                 12, 1775, 1800));
         itemList.add(new GPU(36, "RTX 3090", "Palit GeForce RTX™ 3090 GamingPro delivers stunning visuals, incredibly fast frame rates, and AI acceleration for gaming and creative applications. ",
-                "Nvidia", 1749.99, 4, new ArrayList<String>(Arrays.asList("rtx3090_0","rtx3090_1","rtx3090_2")), 10000, 300,
+                "Nvidia", 1749.99, 4, new ArrayList<String>(Arrays.asList("rtx3090_0","rtx3090_1","rtx3090_2")), 1000, 300,
                 12, 1770, 1897));
         itemList.add(new GPU(37, "RX VEGA 64", "These revamped nCUs (1 nCU = 64 stream processors) are designed to operate at incredible clock speeds and deliver extreme gaming experiences with the newest high resolution and high refresh rate monitors.",
-                "Gigabyte", 648.99, 4, new ArrayList<String>(Arrays.asList("rx_vega_64_0","rx_vega_64_1","rx_vega_64_2")), 10000, 300,
+                "Gigabyte", 648.99, 4, new ArrayList<String>(Arrays.asList("rx_vega_64_0","rx_vega_64_1","rx_vega_64_2")), 1000, 300,
                 8, 1242, 1546));
         itemList.add(new GPU(38, "AMD RX 560D", "The Radeon RX 560D is a graphics card by AMD, launched on July 4th, 2017. Built on the 14 nm process, and based on the Polaris 21 graphics processor, in its Polaris 21 XL variant, the card supports DirectX 12. ",
-                "Radeon", 948.99, 4, new ArrayList<String>(Arrays.asList("rx560d_0","rx560d_1","rx560d_2")), 10000, 300,
+                "Radeon", 948.99, 4, new ArrayList<String>(Arrays.asList("rx560d_0","rx560d_1","rx560d_2")), 1000, 300,
                 12, 1090, 1175));
         itemList.add(new GPU(39, "RX 6800 XT", "With a new outlook, the Red Devil RX 6800 XT is paired with an entirely new advanced cooling solution to keep your graphics card running in low temperatures while providing a remarkably high-performance gaming experience. ",
-                "Gigabyte", 948.99, 4, new ArrayList<String>(Arrays.asList("rx6800_0","rx6800_1","rx6800_2","rx6800_3","rx6800_4")), 10000, 300,
+                "Gigabyte", 948.99, 4, new ArrayList<String>(Arrays.asList("rx6800_0","rx6800_1","rx6800_2","rx6800_3","rx6800_4")), 1000, 300,
                 12, 1433, 2337));
         return itemList;
     }
 
 
-    private static List<RAM> getSampleRAMData() {
-        List<RAM> itemList = new ArrayList<>();
+    private List<IItem> getSampleRAMData() {
+        List<IItem> itemList = new ArrayList<>();
         itemList.add(new RAM(21, "Crucial 8GB Desktop", "There's an easy cure for a slow computer: more memory. Designed to help your system run faster and smoother, Crucial Desktop Memory is one of the easiest and most affordable ways to improve your system's performance. Load programs faster. Increase responsiveness. Run data-intensive applications with ease, and increase your desktop's multitasking capabilities.",
-                "Crucial", 67.99, 4, new ArrayList<String>(Arrays.asList("crucial_8gb_desktop_1","crucial_8gb_desktop_2","crucial_8gb_desktop_3")), 10000, 300,
+                "Crucial", 67.99, 4, new ArrayList<String>(Arrays.asList("crucial_8gb_desktop_1","crucial_8gb_desktop_2","crucial_8gb_desktop_3")), 1001, 301,
                 "DDR4", 8, 2666,"CL19"));
         itemList.add(new RAM(22, "Crucial 16GB Desktop", "As a brand of Micron, one of the largest memory manufacturers in the world, Crucial Desktop Memory is the standard for reliable performance. From the original SDRAM technology all the way to DDR4, we've engineered the memory technologies that have powered the world's computers for 40 years and counting. When you choose Crucial memory, you're choosing memory that's backed by a limited lifetime warranty and designed for the world's leading systems.1 Don't settle for anything less",
-                "Crucial", 109.25, 4, new ArrayList<String>(Arrays.asList("crucial_16gb_desktop_1","crucial_16gb_desktop_2","crucial_16gb_desktop_3")), 10000, 300,
+                "Crucial", 109.25, 4, new ArrayList<String>(Arrays.asList("crucial_16gb_desktop_1","crucial_16gb_desktop_2","crucial_16gb_desktop_3")), 1000, 300,
                 "DDR4", 16, 2666,"CL19"));
         itemList.add(new RAM(23, "Corsair Vengeance RGB Pro SL Black 32GB RAM 2 X 16GB", "CORSAIR VENGEANCE RGB PRO Series DDR4 overclocked memory lights up your PC with mesmerizing dynamic multi-zone RGB lighting, while delivering the best in DDR4 performance.",
-                "Corsair", 368.99, 4, new ArrayList<String>(Arrays.asList("corsair_vengeance_rgb_pro_sl_black_32gb_ram_2_x_16gb_1","corsair_vengeance_rgb_pro_sl_black_32gb_ram_2_x_16gb_2","corsair_vengeance_rgb_pro_sl_black_32gb_ram_2_x_16gb_3")), 10000, 300,
+                "Corsair", 368.99, 4, new ArrayList<String>(Arrays.asList("corsair_vengeance_rgb_pro_sl_black_32gb_ram_2_x_16gb_1","corsair_vengeance_rgb_pro_sl_black_32gb_ram_2_x_16gb_2","corsair_vengeance_rgb_pro_sl_black_32gb_ram_2_x_16gb_3")), 1000, 300,
                 "DDR4", 32, 3600,"CL18"));
         itemList.add(new RAM(24, "Corsair Dominator Platinum RGB 16GB RAM 2 X 8GB", "CORSAIR DOMINATOR® PLATINUM RGB DDR4 Memory redefines premium DDR4 memory, with superior aluminum craftsmanship, tightly screened high-frequency memory chips and 12 ultra-bright, individually addressable CAPELLIX RGB LEDs",
-                "Crucial", 249.55, 4, new ArrayList<String>(Arrays.asList("corsair_dominator_platinum_rgb_16gb_ram_2_x_8gb_1","corsair_dominator_platinum_rgb_16gb_ram_2_x_8gb_2","corsair_dominator_platinum_rgb_16gb_ram_2_x_8gb_3")), 10000, 300,
+                "Crucial", 249.55, 4, new ArrayList<String>(Arrays.asList("corsair_dominator_platinum_rgb_16gb_ram_2_x_8gb_1","corsair_dominator_platinum_rgb_16gb_ram_2_x_8gb_2","corsair_dominator_platinum_rgb_16gb_ram_2_x_8gb_3")), 1000, 300,
                 "DDR4", 16, 3200,"CL16"));
 
         itemList.add(new RAM(25, "G.SKILL Ripjaws V Series Black 32GB", "As the latest addition to the classic Ripjaws family, Ripjaws V series is the newest DDR4 memory designed for maximum compatibility and cutting-edge performance with the latest Intel® Core™ processors. Built with the finest components, tested under the most rigorous conditions, and offered in five color options, Ripjaws V is the perfect choice for building a new performance system or for a simple memory upgrade.",
-                "G.SKILL", 278.99, 4, new ArrayList<String>(Arrays.asList("g_skill_ripjaws_v_series_black_32gb_1","g_skill_ripjaws_v_series_black_32gb_2","g_skill_ripjaws_v_series_black_32gb_3")), 10000, 300,
+                "G.SKILL", 278.99, 4, new ArrayList<String>(Arrays.asList("g_skill_ripjaws_v_series_black_32gb_1","g_skill_ripjaws_v_series_black_32gb_2","g_skill_ripjaws_v_series_black_32gb_3")), 1000, 300,
                 "DDR4", 32, 3600,"CL16"));
         itemList.add(new RAM(26, "Corsair Vengeance RGB RT 16GB RAM 2X 8GB", "CORSAIR VENGEANCE RGB RS DDR4 memory punches up your PC’s aesthetics while delivering outstanding performance. Each module boasts six individually addressable RGB LEDs for brilliant illumination. Take control with CORSAIR iCUE software and customize RGB lighting to match your setup, create custom lighting profiles, and synchronize with all iCUE-compatible devices for stunning lighting across the entire iCUE ecosystem. A custom PCB delivers high signal quality for superb performance and stability on the latest Intel® and AMD DDR4 motherboards, while tightly screened memory chips unlock superior overclocking potential. For mesmerizing, customizable RGB lighting and remarkable DDR4 performance, equip your PC with VENGEANCE RGB RS.",
-                "Corsair", 168.99, 4, new ArrayList<String>(Arrays.asList("corsair_vengeance_rgb_rt_16gb_ram_2x_8gb_1","corsair_vengeance_rgb_rt_16gb_ram_2x_8gb_2","corsair_vengeance_rgb_rt_16gb_ram_2x_8gb_3")), 10000, 300,
+                "Corsair", 168.99, 4, new ArrayList<String>(Arrays.asList("corsair_vengeance_rgb_rt_16gb_ram_2x_8gb_1","corsair_vengeance_rgb_rt_16gb_ram_2x_8gb_2","corsair_vengeance_rgb_rt_16gb_ram_2x_8gb_3")), 1000, 300,
                 "DDR4", 16, 3200,"CL16"));
 
         itemList.add(new RAM(27, "G.SKILL Trident Z Royal Elite Silver 16GB", "he Trident Z Royal Elite series is the upper echelon of DDR4 performance and design, featuring a meticulously sculpted crystalline pattern across the polished surface of the aluminum heatspreader, a patented full-length crystalline light bar, and customizable 8-zone RGB lighting. Created for both performance and aesthetics, the Trident Z Royal Elite is the ultimate choice for any high-end PC build.",
-                "G.SKILL", 319.00, 4, new ArrayList<String>(Arrays.asList("g_skill_trident_z_royal_elite_silver_16gb_1","g_skill_trident_z_royal_elite_silver_16gb_2","g_skill_trident_z_royal_elite_silver_16gb_3")), 10000, 300,
+                "G.SKILL", 319.00, 4, new ArrayList<String>(Arrays.asList("g_skill_trident_z_royal_elite_silver_16gb_1","g_skill_trident_z_royal_elite_silver_16gb_2","g_skill_trident_z_royal_elite_silver_16gb_3")), 1000, 300,
                 "DDR4", 16, 3600,"CL16"));
 
         itemList.add(new RAM(28, "Kingston FURY Beast 16GB RAM", "Kingston FURY Beast 16GB RAM (2 x 8GB) DDR4-3600MHz CL17 - Black (Intel XMP, AMD Ryzen) KF436C17BBK2/16",
-                "Kingston", 168.99, 4, new ArrayList<String>(Arrays.asList("kingston_fury_beast_16gb_ram_1","kingston_fury_beast_16gb_ram_2","kingston_fury_beast_16gb_ram_3")), 10000, 300,
+                "Kingston", 168.99, 4, new ArrayList<String>(Arrays.asList("kingston_fury_beast_16gb_ram_1","kingston_fury_beast_16gb_ram_2","kingston_fury_beast_16gb_ram_3")), 1000, 300,
                 "DDR4", 16, 3600,"CL17"));
 
         itemList.add(new RAM(29, "G.SKILL Trident Z Neo RGB 64 GB RAM", "Engineered and optimized for full compatibility on the latest AMD Ryzen 3000 series processors on AMD X570 chipset motherboards, Trident Z Neo brings unparalleled memory performance and vibrant RGB lighting to any gaming PC or workstation with AMD Ryzen 3000 CPUs and AMD X570 motherboards.",
-                "G.SKILL", 694.99, 4, new ArrayList<String>(Arrays.asList("g_skill_trident_z_neo_rgb_64_gb_ram_1","g_skill_trident_z_neo_rgb_64_gb_ram_2","g_skill_trident_z_neo_rgb_64_gb_ram_3")), 10000, 300,
+                "G.SKILL", 694.99, 4, new ArrayList<String>(Arrays.asList("g_skill_trident_z_neo_rgb_64_gb_ram_1","g_skill_trident_z_neo_rgb_64_gb_ram_2","g_skill_trident_z_neo_rgb_64_gb_ram_3")), 1000, 300,
                 "DDR4", 64, 3600,"CL18"));
         itemList.add(new RAM(20, "Corsair Vengeance RGB RS 64GB RAM 2X 32GB", "Corsair Vengeance RGB RS 64GB RAM 2X 32GB, DDR4, 3200 MHz, Unbuffered, 16-20-20-38, 1.35V, Black PCB, For AMD Ryzen & Intel",
                 "Corsair", 668.99, 4, new ArrayList<String>(Arrays.asList("corsair_vengeance_rgb_rs_64gb_ram_2x_32gb_1","corsair_vengeance_rgb_rs_64gb_ram_2x_32gb_2","corsair_vengeance_rgb_rs_64gb_ram_2x_32gb_3")), 10000, 300,
@@ -308,12 +305,8 @@ public class DataProvider {
     }
 
 
-
-
-
-
-    private static List<CPU> getSampleCPUData() {
-        List<CPU> itemList = new ArrayList<>();
+    private List<IItem> getSampleCPUData() {
+        List<IItem> itemList = new ArrayList<>();
         itemList.add(new CPU(11, "AMD Ryzen 7 3700X CPU", "Everyone deserves a powerful processor. Uncompromising features and smooth performance are finally the standard for every gamer and artist.",
                 "AMD", 549.99, 4, new ArrayList<String>(Arrays.asList("ryzen_7_3700x_0","ryzen_7_3700x_1","ryzen_7_3700x_2")), 10000, 300,
                 8, "AMD AM4",3600, 4400));

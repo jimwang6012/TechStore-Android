@@ -3,8 +3,6 @@ package com.example.yousee.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.yousee.adapter.CategoryAdaptor;
 import com.example.yousee.adapter.ListAdapter;
@@ -20,10 +17,16 @@ import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.R;
 import com.example.yousee.util.DataProvider;
+import com.example.yousee.util.IDataProvider;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private enum Status{
+        TopSell,TopPick
+    }
+
     ArrayList<IItem> items;
     ArrayList<ICategory> categories;
     ListAdapter topPickAdaptor;
@@ -34,25 +37,35 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rvCategories;
 
     LinearLayout switchPanel;
-    Button txTopSell;
-    Button txTopPick;
+    Button btnTopSell;
+    Button btnTopPick;
+    Status status = Status.TopPick;
+
+    IDataProvider dataProvider;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        dataProvider = new DataProvider();
         // populate database
-        DataProvider.addDataToFirestore();
+        new DataProvider().addDataToFirestore();
 
         //hide action bar
         getSupportActionBar().hide();
 
         initTopPickPanel();
+
         initCategoryPanel();
         initSearchBtn();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (status == Status.TopPick) toTopPick(switchPanel);
     }
 
     private void initSearchBtn() {
@@ -72,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private void initTopSellPanel() {
         // Lookup the recyclerview in activity layout
         rvTopItems = (RecyclerView) findViewById(R.id.rvTop);
-        DataProvider.getTopSellingItems(res -> populateTopSellAdaptor(res),15);
+        dataProvider.getTopSellingItems(res -> populateTopSellAdaptor(res),15);
     }
 
 
@@ -83,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private void initTopPickPanel() {
         // Lookup the recyclerview in activity layout
         rvTopItems = (RecyclerView) findViewById(R.id.rvTop);
-        DataProvider.getTopViewedItems(res -> populateTopPickAdaptor(res),15);
+        dataProvider.getTopViewedItems(res -> populateTopPickAdaptor(res),15);
     }
 
     private void populateTopPickAdaptor(ArrayList<IItem> items) {
@@ -125,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         rvCategories = (RecyclerView) findViewById(R.id.rvCategory);
 
         // Initialize Categories
-        DataProvider.getCategories(res -> populateAdaptor(res));
+        dataProvider.getCategories(res -> populateAdaptor(res));
     }
 
     private void populateAdaptor(ArrayList<ICategory> res) {
@@ -147,27 +160,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toTopPick(View view) {
-        txTopSell = (Button) findViewById(R.id.textTopSell);
-        txTopPick = (Button) findViewById(R.id.textTopPick);
-        txTopSell.setEnabled(true);
-        txTopPick.setEnabled(false);
+        btnTopSell = (Button) findViewById(R.id.textTopSell);
+        btnTopPick = (Button) findViewById(R.id.textTopPick);
+        btnTopSell.setEnabled(true);
+        btnTopPick.setEnabled(false);
 
-        txTopSell.setBackground(getDrawable(R.drawable.black_bg_shadow));
-        txTopPick.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        btnTopSell.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        btnTopPick.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        status = Status.TopPick;
         initTopPickPanel();
     }
 
 
     public void toTopSell(View view) {
-        txTopSell = (Button) findViewById(R.id.textTopSell);
-        txTopPick = (Button) findViewById(R.id.textTopPick);
+        btnTopSell = (Button) findViewById(R.id.textTopSell);
+        btnTopPick = (Button) findViewById(R.id.textTopPick);
 
-        txTopSell.setEnabled(false);
-        txTopPick.setEnabled(true);
+        btnTopSell.setEnabled(false);
+        btnTopPick.setEnabled(true);
 
-        txTopPick.setBackground(getDrawable(R.drawable.black_bg_shadow));
-        txTopSell.setBackground(getDrawable(R.drawable.grey_bg_shadow));
-
+        btnTopPick.setBackground(getDrawable(R.drawable.black_bg_shadow));
+        btnTopSell.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        status = Status.TopSell;
         initTopSellPanel();
     }
 
