@@ -20,7 +20,6 @@ public interface IDataProvider {
 
     void getItemsByName(ArrayItemCallBackManager callBackManager, String name);
 
-    void getItemsByName(ArrayItemCallBackManager callBackManager, String name, ItemType category);
 
     interface CategoryCallBackManager{
         void callbackFunction(@NonNull ArrayList<ICategory> res);

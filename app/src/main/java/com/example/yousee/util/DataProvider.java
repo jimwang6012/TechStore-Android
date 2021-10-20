@@ -123,25 +123,7 @@ public class DataProvider implements IDataProvider {
         });
     }
 
-    public void getItemsByName(ArrayItemCallBackManager callBackManager, String name, ItemType category){
-        ArrayList<IItem> res = new ArrayList<>();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Item").whereEqualTo("itemType",category.name()).whereGreaterThanOrEqualTo("name",name).whereLessThanOrEqualTo("name",name+"\uF8FF").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                System.out.println("successfully finish");
-                for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                    IItem converted = documentToItem(snapshot);
-                    if (converted != null) {
-                        res.add(converted);
-                    }
-                }
-                callBackManager.callbackFunction(res);
-            }else{
-                callBackManager.callbackFunction(res);
-                System.out.println("fail to load the thing");
-            }
-        });
-    }
+
 
     public void getTopViewedItems(ArrayItemCallBackManager callBackManager, int numOfItems){
         getSortedItems(callBackManager, numOfItems, "numViewed");
