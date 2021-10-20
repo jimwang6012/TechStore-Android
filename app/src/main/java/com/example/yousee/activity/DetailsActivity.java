@@ -120,12 +120,26 @@ public class DetailsActivity extends AppCompatActivity {
         descButton.setOnClickListener(view -> {
             details.setText(item.getDescription());
             descButton.setBackgroundColor(getResources().getColor(R.color.grey));
-            specButton.setBackgroundColor(getResources().getColor(R.color.navy_dark));
+
+            int pL = specButton.getPaddingLeft();
+            int pT = specButton.getPaddingTop();
+            int pR = specButton.getPaddingRight();
+            int pB = specButton.getPaddingBottom();
+
+            specButton.setBackgroundResource(R.drawable.navy_dark_bg_shadow);
+            specButton.setPadding(pL, pT, pR, pB);
         });
         specButton.setOnClickListener(view -> {
             details.setText(convertMapToString(item.listSpecs()));
             specButton.setBackgroundColor(getResources().getColor(R.color.grey));
-            descButton.setBackgroundColor(getResources().getColor(R.color.navy_dark));
+
+            int pL = specButton.getPaddingLeft();
+            int pT = specButton.getPaddingTop();
+            int pR = specButton.getPaddingRight();
+            int pB = specButton.getPaddingBottom();
+
+            descButton.setBackgroundResource(R.drawable.navy_dark_bg_shadow);
+            descButton.setPadding(pL, pT, pR, pB);
         });
     }
 

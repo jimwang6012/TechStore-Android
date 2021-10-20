@@ -111,13 +111,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/navy"
+            android:background="@color/grey"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:insetTop="0dp"
@@ -126,17 +128,33 @@
                 app:backgroundTint="@null"
                 android:text="Description" />
 
+<!--            <TextView-->
+<!--                android:id="@+id/textSeparation"-->
+<!--                android:layout_width="2dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/white_bg_shadow"-->
+<!--                android:text="" />-->
+
             <Button
                 android:id="@+id/btn_spec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:background="@color/navy_dark"
+                android:background="@drawable/navy_dark_bg_shadow"
                 app:backgroundTint="@null"
                 android:text="Specification" />
+
+            <TextView
+                android:id="@+id/textFill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/navy_bg_shadow"
+                android:text="" />
 
         </LinearLayout>
 
