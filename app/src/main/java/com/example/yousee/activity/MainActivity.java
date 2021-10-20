@@ -165,8 +165,9 @@ public class MainActivity extends AppCompatActivity {
         btnTopSell.setEnabled(true);
         btnTopPick.setEnabled(false);
 
-        btnTopSell.setBackground(getDrawable(R.drawable.black_bg_shadow));
-        btnTopPick.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        btnTopSell.setBackground(getDrawable(R.drawable.navy_dark_bg_shadow));
+        btnTopPick.setBackgroundColor(getResources().getColor(R.color.grey));
+
         status = Status.TopPick;
         initTopPickPanel();
     }
@@ -179,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
         btnTopSell.setEnabled(false);
         btnTopPick.setEnabled(true);
 
-        btnTopPick.setBackground(getDrawable(R.drawable.black_bg_shadow));
-        btnTopSell.setBackground(getDrawable(R.drawable.grey_bg_shadow));
+        btnTopPick.setBackground(getDrawable(R.drawable.navy_dark_bg_shadow));
+        btnTopSell.setBackgroundColor(getResources().getColor(R.color.grey));
         status = Status.TopSell;
         initTopSellPanel();
     }
