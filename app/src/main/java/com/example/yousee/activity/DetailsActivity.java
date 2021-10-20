@@ -15,6 +15,7 @@ import com.example.yousee.model.GPU;
 import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.util.DataProvider;
+import com.example.yousee.util.IDataProvider;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -38,10 +39,14 @@ public class DetailsActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
 
     IItem item;
+    IDataProvider dataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dataProvider = new DataProvider();
+
         setContentView(R.layout.activity_details);
         //hide action bar
         getSupportActionBar().hide();
@@ -60,7 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         item = (IItem) intent.getSerializableExtra("item");
 
-        DataProvider.incrementItemNumViewed(item);
+        dataProvider.incrementItemNumViewed(item);
 
         int[] images = new int[item.getImageUrls().size()];
 
