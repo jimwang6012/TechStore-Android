@@ -82,9 +82,9 @@
                 android:background="@drawable/rounded_bg"
                 android:drawableStart="@android:drawable/ic_menu_search"
                 android:elevation="10dp"
+                android:hint="@string/search_items"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:hint="@string/search_items"
                 android:minHeight="48dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -97,24 +97,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_items"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_items"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_items"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/grey"
-            android:overScrollMode="never"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            tools:listitem="@layout/list_item" />
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/grey"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/list_item" />
 
     <TextView
         android:id="@+id/text_message"
