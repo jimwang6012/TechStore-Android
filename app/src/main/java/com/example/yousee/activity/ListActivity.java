@@ -35,6 +35,7 @@ public class ListActivity extends AppCompatActivity {
         RecyclerView items;
         EditText searchField;
         CoordinatorLayout coordinatorLayout;
+        NestedScrollView nestedScrollView;
         TextView message;
 
         public ViewHolder() {
@@ -44,6 +45,7 @@ public class ListActivity extends AppCompatActivity {
             items = (RecyclerView) findViewById(R.id.rv_items);
             searchField = (EditText) findViewById(R.id.search_button);
             coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_list);
+            nestedScrollView = (NestedScrollView) findViewById(R.id.nsv_items);
             message = (TextView) findViewById(R.id.text_message);
         }
     }
