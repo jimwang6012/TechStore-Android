@@ -33,7 +33,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView itemInfoValue;
     Button descButton;
     Button specButton;
-    TextView details;
+    TextView detailsDesc;
+    TextView detailsSpec;
 
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -61,7 +62,8 @@ public class DetailsActivity extends AppCompatActivity {
         itemInfoValue = (TextView) findViewById(R.id.tv_item_info_value);
         descButton = (Button) findViewById(R.id.btn_desc);
         specButton = (Button) findViewById(R.id.btn_spec);
-        details = (TextView) findViewById(R.id.tv_details);
+        detailsDesc = (TextView) findViewById(R.id.tv_details_desc);
+        detailsSpec = (TextView) findViewById(R.id.tv_details_spec);
 
         //Get Item from Intent
         Intent intent = getIntent();
@@ -124,10 +126,10 @@ public class DetailsActivity extends AppCompatActivity {
         descButton.setText("Description");
         specButton.setText("Specification");
 
-        details.setText(item.getDescription());
+        detailsDesc.setText(item.getDescription());
 
         descButton.setOnClickListener(view -> {
-            details.setText(item.getDescription());
+            detailsDesc.setText(item.getDescription());
             descButton.setBackgroundColor(getResources().getColor(R.color.grey));
 
             int pL = specButton.getPaddingLeft();
@@ -139,7 +141,8 @@ public class DetailsActivity extends AppCompatActivity {
             specButton.setPadding(pL, pT, pR, pB);
         });
         specButton.setOnClickListener(view -> {
-            details.setText(convertMapToString(item.listSpecs()));
+            detailsDesc.setText(convertMapToStringName(item.listSpecs()));
+            detailsSpec.setText(convertMapToStringValue(item.listSpecs()));
             specButton.setBackgroundColor(getResources().getColor(R.color.grey));
 
             int pL = specButton.getPaddingLeft();
@@ -152,10 +155,19 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
-    private String convertMapToString(Map<String, ?> map) {
+    private String convertMapToStringName(Map<String, ?> map) {
         StringBuilder mapString = new StringBuilder();
         for (String key : map.keySet()) {
-            mapString.append(key + ": " + map.get(key) + "\n");
+            mapString.append(key + ": \n");
+        }
+        mapString.delete(mapString.length() - 1, mapString.length());
+        return mapString.toString();
+    }
+
+    private String convertMapToStringValue(Map<String, ?> map) {
+        StringBuilder mapString = new StringBuilder();
+        for (String key : map.keySet()) {
+            mapString.append(map.get(key) + "\n");
         }
         mapString.delete(mapString.length() - 1, mapString.length());
         return mapString.toString();
