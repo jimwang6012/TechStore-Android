@@ -5,21 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@color/navy"
     tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="27sp" />
 
             <EditText
                 android:id="@+id/search_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:autofillHints="name"
                 android:background="@drawable/rounded_bg"
                 android:drawableStart="@android:drawable/ic_menu_search"
@@ -30,83 +44,84 @@
                 android:paddingEnd="10dp"
                 android:textColor="@color/search_text"
                 android:textColorHint="@color/search_text" />
+        </LinearLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:id="@+id/rvCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="125dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="0dp"
-                android:fadingEdge="none"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:itemCount="3"
-                tools:listitem="@layout/category_icon">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
+            android:fadingEdge="none"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:itemCount="3"
+            tools:listitem="@layout/category_icon">
 
-            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/switchPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/textTopPick"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@color/grey"
                 android:gravity="center"
-                android:id="@+id/switchPanel"
-                android:background="@color/grey"
-                android:animateLayoutChanges="true"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:onClick="toTopPick"
+                android:text="@string/top_pick"
+                android:textColor="@android:color/white"
 
-                <Button
-                    android:id="@+id/textTopPick"
-                    android:layout_width="0dp"
-                    android:onClick="toTopPick"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/grey_bg_shadow"
-                    android:gravity="center"
-                    android:text="@string/top_pick"
-                    android:textColor="@android:color/white"
-                    app:backgroundTint="@null"
+                android:textSize="20sp"
+                app:backgroundTint="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-                <Button
-                    android:id="@+id/textTopSell"
-                    android:onClick="toTopSell"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/app_bar_bg"
-                    app:backgroundTint="@null"
-                    android:gravity="center"
-                    android:text="@string/top_selling"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/grey"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                tools:listitem="@layout/list_item" />
+            <Button
+                android:id="@+id/textTopSell"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/navy_dark_bg_shadow"
+                android:gravity="center"
+                android:onClick="toTopSell"
+                android:text="@string/top_selling"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:backgroundTint="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            tools:listitem="@layout/list_item" />
+
+    </LinearLayout>
 
 </RelativeLayout>
