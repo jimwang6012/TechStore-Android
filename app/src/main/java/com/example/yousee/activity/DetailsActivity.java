@@ -29,7 +29,8 @@ public class DetailsActivity extends AppCompatActivity {
     TextView itemName;
     TextView itemCategory;
     TextView itemPrice;
-    TextView itemInfo;
+    TextView itemInfoName;
+    TextView itemInfoValue;
     Button descButton;
     Button specButton;
     TextView details;
@@ -56,7 +57,8 @@ public class DetailsActivity extends AppCompatActivity {
         itemName = (TextView) findViewById(R.id.tv_item_name);
         itemCategory = (TextView) findViewById(R.id.tv_category);
         itemPrice = (TextView) findViewById(R.id.tv_price);
-        itemInfo = (TextView) findViewById(R.id.tv_item_info);
+        itemInfoName = (TextView) findViewById(R.id.tv_item_info_name);
+        itemInfoValue = (TextView) findViewById(R.id.tv_item_info_value);
         descButton = (Button) findViewById(R.id.btn_desc);
         specButton = (Button) findViewById(R.id.btn_spec);
         details = (TextView) findViewById(R.id.tv_details);
@@ -102,13 +104,20 @@ public class DetailsActivity extends AppCompatActivity {
         itemCategory.setText(item.getItemType().name());
         itemPrice.setText("$" + String.valueOf(item.getPrice()));
 
-        String info = "";
-        info += "Brand: " + item.getBrand();
-        info += "\nStock: " + item.getStock();
-        info += "\nSold: " + item.getNumSold();
-        info += "\nViews: " + item.getNumViewed();
+        String infoName = "";
+        infoName += "Brand: ";
+        infoName += "\nStock: ";
+        infoName += "\nSold: ";
+        infoName += "\nViews: ";
 
-        itemInfo.setText(info);
+        String infoValue = "";
+        infoValue += item.getBrand();
+        infoValue += "\n" + item.getStock();
+        infoValue += "\n" + item.getNumSold();
+        infoValue += "\n" + item.getNumViewed();
+
+        itemInfoName.setText(infoName);
+        itemInfoValue.setText(infoValue);
     }
 
     private void initDetailsButton() {

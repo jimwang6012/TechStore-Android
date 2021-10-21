@@ -98,15 +98,40 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_item_info"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@color/navy"
-            android:text="Item Information"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:orientation="horizontal"
+            android:background="@color/navy">
+
+            <TextView
+                android:id="@+id/tv_item_info_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/navy"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Item Information Name"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_item_info_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/navy"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="0dp"
+                android:text="Item Information Value"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
