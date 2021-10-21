@@ -37,7 +37,6 @@
                 android:autofillHints="name"
                 android:background="@drawable/rounded_bg"
                 android:drawableStart="@android:drawable/ic_menu_search"
-                android:elevation="10dp"
                 android:hint="@string/search_items"
                 android:minHeight="48dp"
                 android:paddingStart="10dp"
