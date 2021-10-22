@@ -19,7 +19,7 @@ public interface IDataProvider {
     void getTopSellingItems(ArrayItemCallBackManager callBackManager, int numOfItems);
 
     void getItemsByName(ArrayItemCallBackManager callBackManager, String name);
-
+    void getAllItems(ArrayItemCallBackManager callBackManager);
 
     interface CategoryCallBackManager{
         void callbackFunction(@NonNull ArrayList<ICategory> res);
