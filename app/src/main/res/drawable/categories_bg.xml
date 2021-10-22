@@ -59,7 +59,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/navy_dark" />
+            <solid android:color="@color/navy" />
         </shape>
     </item>
 </layer-list>

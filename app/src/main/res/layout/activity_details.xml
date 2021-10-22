@@ -43,8 +43,8 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_images"
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="300dp"/>
+            android:layout_height="300dp"
+            android:background="@color/white" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_image_tracker"
@@ -59,11 +59,11 @@
             android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/navy"
             android:padding="10dp"
-            android:textSize="24sp"
             android:text="TextView"
             android:textColor="@color/white"
-            android:background="@color/navy"/>
+            android:textSize="24sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -74,15 +74,15 @@
                 android:id="@+id/tv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
                 android:background="@drawable/rounded_bg"
                 android:maxLines="1"
                 android:paddingHorizontal="5dp"
-                android:layout_margin="10dp"
                 android:text="Category"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -90,11 +90,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:paddingHorizontal="5dp"
                 android:layout_margin="10dp"
+                android:paddingHorizontal="5dp"
                 android:text="Price"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
@@ -102,18 +102,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/navy">
+            android:background="@color/navy"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_item_info_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/navy"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
+                android:paddingTop="10dp"
                 android:paddingRight="0dp"
+                android:paddingBottom="10dp"
                 android:text="Item Information Name"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -123,10 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/navy"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
+                android:paddingTop="10dp"
                 android:paddingRight="0dp"
+                android:paddingBottom="10dp"
                 android:text="Item Information Value"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -141,38 +141,42 @@
 
             <Button
                 android:id="@+id/btn_desc"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="10dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
+                android:background="@drawable/tab_bg"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:background="@color/grey"
-                app:backgroundTint="@null"
-                android:text="Description" />
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="Description"
+                android:textColor="@color/white"
+                app:backgroundTint="@null" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/textSeparation"-->
-<!--                android:layout_width="2dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@drawable/white_bg_shadow"-->
-<!--                android:text="" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/textSeparation"-->
+            <!--                android:layout_width="2dp"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:background="@drawable/white_bg_shadow"-->
+            <!--                android:text="" />-->
 
             <Button
                 android:id="@+id/btn_spec"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="10dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
+                android:background="@color/navy_dark"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:background="@drawable/navy_dark_bg_shadow"
-                app:backgroundTint="@null"
-                android:text="Specification" />
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="Specification"
+                android:textColor="@color/white"
+                app:backgroundTint="@null" />
 
             <TextView
                 android:id="@+id/textFill"
@@ -201,10 +205,10 @@
                 android:id="@+id/tv_details_spec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Description / Specification"
                 android:textColor="@color/white"
                 android:textSize="16sp" />

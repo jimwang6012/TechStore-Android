@@ -112,6 +112,7 @@
             android:background="@color/grey"
             android:overScrollMode="never"
             android:paddingLeft="10dp"
+            android:paddingTop="8dp"
             android:paddingRight="10dp"
             tools:listitem="@layout/list_item" />
     </LinearLayout>

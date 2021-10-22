@@ -17,9 +17,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:layout_height="wrap_content">
+            android:paddingBottom="16dp">
 
             <ImageButton
                 android:id="@+id/image_back_button"
@@ -32,6 +32,7 @@
                 android:contentDescription="Return button"
                 android:scaleType="center"
                 android:src="@drawable/arrow_back" />
+
             <EditText
                 android:id="@+id/search_button"
                 android:layout_width="match_parent"
@@ -51,10 +52,6 @@
                 android:textColor="@color/search_text"
                 android:textColorHint="@color/search_text" />
         </LinearLayout>
-
-
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -65,6 +62,7 @@
         android:background="@color/grey"
         android:overScrollMode="never"
         android:paddingLeft="10dp"
+        android:paddingTop="8dp"
         android:paddingRight="10dp"
         android:visibility="gone"
         tools:listitem="@layout/list_item">
