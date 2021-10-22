@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -122,10 +123,12 @@ public class DetailsActivity extends AppCompatActivity {
         specButton.setText("Specification");
 
         detailsDesc.setText(item.getDescription());
+        detailsSpec.setVisibility(View.GONE);
 
         descButton.setOnClickListener(view -> {
             detailsDesc.setText(item.getDescription());
             descButton.setBackground(getDrawable(R.drawable.tab_bg));
+            detailsSpec.setVisibility(View.GONE);
 
             int pL = specButton.getPaddingLeft();
             int pT = specButton.getPaddingTop();
@@ -140,6 +143,7 @@ public class DetailsActivity extends AppCompatActivity {
             detailsDesc.setText(convertMapToStringName(item.listSpecs()));
             detailsSpec.setText(convertMapToStringValue(item.listSpecs()));
             specButton.setBackground(getDrawable(R.drawable.tab_bg));
+            detailsSpec.setVisibility(View.VISIBLE);
 
             int pL = descButton.getPaddingLeft();
             int pT = descButton.getPaddingTop();
