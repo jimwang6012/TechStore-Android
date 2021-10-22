@@ -73,7 +73,8 @@ public class SearchActivity extends AppCompatActivity {
         //perform search when submit
         vh.searchField.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                dataProvider.getItemsByName(res -> initList(res),v.getText().toString());
+
+                dataProvider.getAllItems(res->initList(res,v.getText().toString()));
                 hideKeyboard();
                 return true;
             }
@@ -82,31 +83,48 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void initList(ArrayList<IItem> res) {
+
+    /**
+     * displaying the search result on screen
+     * @param res the response data from the query
+     * @param searchString the string we intended to search for
+     */
+    private void initList(ArrayList<IItem> res,String searchString) {
+
+        System.out.println(searchString);
 
         if (res != null) {
             // Initialize Items
             items = res;
+            ArrayList<IItem> filtered = new ArrayList<>();
+            for (IItem item: items){
+                if(item.getName().toLowerCase().contains(searchString.toLowerCase())){
+                    filtered.add(item);
+                }
+            }
+            if (filtered.isEmpty()){
+                vh.items.setVisibility(View.GONE);
+                vh.message.setVisibility(View.VISIBLE);
+            }else{
+                vh.message.setVisibility(View.GONE);
 
-            vh.message.setVisibility(View.GONE);
+                vh.items.setVisibility(View.VISIBLE);
 
-            vh.items.setVisibility(View.VISIBLE);
+                // Create adapter passing in the sample user data
+                listAdapter = new ListAdapter(filtered);
+                // Attach the adapter to the recyclerview to populate items
+                vh.items.setAdapter(listAdapter);
 
-            // Create adapter passing in the sample user data
-            listAdapter = new ListAdapter(items);
-            // Attach the adapter to the recyclerview to populate items
-            vh.items.setAdapter(listAdapter);
+                // an verticaL RecyclerView
+                LinearLayoutManager lm = new LinearLayoutManager(this);
 
-            // an verticaL RecyclerView
-            LinearLayoutManager lm = new LinearLayoutManager(this);
+                // Set layout manager to position the items
+                vh.items.setLayoutManager(lm);
+            }
 
-            // Set layout manager to position the items
-            vh.items.setLayoutManager(lm);
-        }
-        if (res.isEmpty()){
-            vh.items.setVisibility(View.GONE);
 
-            vh.message.setVisibility(View.VISIBLE);
+
+
         }
     }
 
