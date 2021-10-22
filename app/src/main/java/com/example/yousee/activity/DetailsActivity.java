@@ -11,17 +11,12 @@ import android.widget.TextView;
 
 import com.example.yousee.R;
 import com.example.yousee.adapter.ViewPagerAdapter;
-import com.example.yousee.model.GPU;
-import com.example.yousee.model.ICategory;
 import com.example.yousee.model.IItem;
 import com.example.yousee.util.DataProvider;
 import com.example.yousee.util.IDataProvider;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -130,27 +125,29 @@ public class DetailsActivity extends AppCompatActivity {
 
         descButton.setOnClickListener(view -> {
             detailsDesc.setText(item.getDescription());
-            descButton.setBackgroundColor(getResources().getColor(R.color.grey));
+            descButton.setBackground(getDrawable(R.drawable.tab_bg));
 
             int pL = specButton.getPaddingLeft();
             int pT = specButton.getPaddingTop();
             int pR = specButton.getPaddingRight();
             int pB = specButton.getPaddingBottom();
 
-            specButton.setBackgroundResource(R.drawable.navy_dark_bg_shadow);
+            specButton.setBackgroundColor(getResources().getColor(R.color.navy_dark));
             specButton.setPadding(pL, pT, pR, pB);
+            descButton.setPadding(pL, pT, pR, pB);
         });
         specButton.setOnClickListener(view -> {
             detailsDesc.setText(convertMapToStringName(item.listSpecs()));
             detailsSpec.setText(convertMapToStringValue(item.listSpecs()));
-            specButton.setBackgroundColor(getResources().getColor(R.color.grey));
+            specButton.setBackground(getDrawable(R.drawable.tab_bg));
 
-            int pL = specButton.getPaddingLeft();
-            int pT = specButton.getPaddingTop();
-            int pR = specButton.getPaddingRight();
-            int pB = specButton.getPaddingBottom();
+            int pL = descButton.getPaddingLeft();
+            int pT = descButton.getPaddingTop();
+            int pR = descButton.getPaddingRight();
+            int pB = descButton.getPaddingBottom();
 
-            descButton.setBackgroundResource(R.drawable.navy_dark_bg_shadow);
+            descButton.setBackgroundColor(getResources().getColor(R.color.navy_dark));
+            specButton.setPadding(pL, pT, pR, pB);
             descButton.setPadding(pL, pT, pR, pB);
         });
     }
