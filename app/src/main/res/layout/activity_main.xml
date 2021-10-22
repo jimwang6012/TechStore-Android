@@ -4,70 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@color/grey"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
 
-        <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/navy"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/navy"
-            android:orientation="vertical">
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingRight="10dp"
+                        android:text="@string/app_name"
+                        android:textColor="@color/white"
+                        android:textSize="27sp" />
 
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/search_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/black"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:paddingRight="10dp"
-                            android:text="@string/app_name"
-                            android:textColor="@color/white"
-                            android:textSize="27sp" />
-
-                        <EditText
-                            android:id="@+id/search_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:autofillHints="name"
-                            android:background="@drawable/rounded_bg"
-                            android:drawableStart="@android:drawable/ic_menu_search"
-                            android:hint="@string/search_items"
-                            android:minHeight="48dp"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:textColor="@color/search_text"
-                            android:textColorHint="@color/search_text" />
-                    </LinearLayout>
-
+                        android:autofillHints="name"
+                        android:background="@drawable/rounded_bg"
+                        android:drawableStart="@android:drawable/ic_menu_search"
+                        android:hint="@string/search_items"
+                        android:minHeight="48dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/search_text"
+                        android:textColorHint="@color/search_text" />
                 </LinearLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+
+            </LinearLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/ll_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -87,10 +87,8 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="3"
-                tools:listitem="@layout/category_icon">
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/category_icon"></androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTop"
@@ -99,8 +97,9 @@
             android:background="@color/grey"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="58dp"
             tools:listitem="@layout/list_item" />
-
 
     </LinearLayout>
 
@@ -108,9 +107,9 @@
         android:id="@+id/switchPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:animateLayoutChanges="true"
         android:background="@drawable/tabs_bg"
-        android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -125,8 +124,6 @@
             android:onClick="toTopPick"
             android:text="@string/top_pick"
             android:textColor="@android:color/white"
-
-
             android:textSize="20sp"
             app:backgroundTint="@null"
             app:layout_constraintStart_toStartOf="parent"
