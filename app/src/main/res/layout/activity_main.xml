@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/navy"
+    android:layout_gravity="center"
+    android:background="@color/grey"
     tools:context=".activity.MainActivity">
 
 
@@ -14,8 +15,6 @@
             android:layout_height="wrap_content"
             android:background="@color/navy"
             android:orientation="vertical">
-
-
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -58,75 +57,9 @@
                             android:textColor="@color/search_text"
                             android:textColorHint="@color/search_text" />
                     </LinearLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCategory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="125dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="0dp"
-                        android:fadingEdge="none"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/category_icon">
-
-                    </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
-
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-            <LinearLayout
-                android:id="@+id/switchPanel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:background="@color/grey"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <Button
-                    android:id="@+id/textTopPick"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/grey"
-                    android:gravity="center"
-                    android:onClick="toTopPick"
-                    android:text="@string/top_pick"
-                    android:textColor="@android:color/white"
-
-                    android:textSize="20sp"
-                    app:backgroundTint="@null"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/textTopSell"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/navy_dark_bg_shadow"
-                    android:gravity="center"
-                    android:onClick="toTopSell"
-                    android:text="@string/top_selling"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    app:backgroundTint="@null"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </LinearLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -137,6 +70,28 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/categories_bg"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:background="@color/navy"
+                android:fadingEdge="none"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="3"
+                tools:listitem="@layout/category_icon">
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTop"
             android:layout_width="match_parent"
@@ -145,6 +100,53 @@
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
             tools:listitem="@layout/list_item" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/switchPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/tabs_bg"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/textTopPick"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:onClick="toTopPick"
+            android:text="@string/top_pick"
+            android:textColor="@android:color/white"
+
+
+            android:textSize="20sp"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/textTopSell"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/navy_dark_bg_shadow"
+            android:gravity="center"
+            android:onClick="toTopSell"
+            android:text="@string/top_selling"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 

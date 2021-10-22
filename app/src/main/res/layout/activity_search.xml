@@ -51,10 +51,6 @@
                 android:textColor="@color/search_text"
                 android:textColorHint="@color/search_text" />
         </LinearLayout>
-
-
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
